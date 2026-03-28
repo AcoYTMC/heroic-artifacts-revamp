@@ -16,13 +16,15 @@ import silly.chemthunder.redemption.client.entity.BindingHexRenderer;
 import silly.chemthunder.redemption.entity.BindingHexEntity;
 
 public interface RedemptionEntities {
-    EntityType<BindingHexEntity> BINDING_HEX = create(
-            "binding_hex",
-            EntityType.Builder.create(
-                    BindingHexEntity::new,
-                    SpawnGroup.MISC
-            ).dimensions(0.6f, 0.3f)
-    );
+
+
+//    EntityType<BindingHexEntity> BINDING_HEX = create(
+//            "binding_hex",
+//            EntityType.Builder.create(
+//                    BindingHexEntity::new,
+//                    SpawnGroup.MISC
+//            ).dimensions(0.6f, 0.3f)
+//    );
 
     static <T extends Entity> EntityType<T> create(String name, EntityType.Builder<T> builder) {
         RegistryKey<EntityType<?>> key = RegistryKey.of(RegistryKeys.ENTITY_TYPE, Redemption.id(name));
@@ -35,8 +37,8 @@ public interface RedemptionEntities {
 //        FabricDefaultAttributeRegistry.register(MOTH_SATIN, MothEntity.createAttribute());
 //        FabricDefaultAttributeRegistry.register(DUSTY_MOTH, MothEntity.createAttribute());
 //        FabricDefaultAttributeRegistry.register(MOTH_REDHEAD, MothEntity.createAttribute());
-
-        FabricDefaultAttributeRegistry.register(BINDING_HEX, BindingHexEntity.createAttribute());
+//
+//        FabricDefaultAttributeRegistry.register(BINDING_HEX, BindingHexEntity.createAttribute());
     }
 
     static void clientIndex() {
@@ -45,7 +47,7 @@ public interface RedemptionEntities {
 //        EntityRendererRegistry.register(MOTH_SATIN, MothEntityRenderer::new);
 //        EntityRendererRegistry.register(MOTH_REDHEAD, MothEntityRenderer::new);
 //        EntityRendererRegistry.register(DUSTY_MOTH, MothEntityRenderer::new);
-        EntityRendererRegistry.register(BINDING_HEX, BindingHexRenderer::new);
-        EntityModelLayerRegistry.registerModelLayer(BindingHexEntityModel.MOTH_MODEL, BindingHexEntityModel::getTexturedModelData);
+//        EntityRendererRegistry.register(BINDING_HEX, BindingHexRenderer::new);
+//        EntityModelLayerRegistry.registerModelLayer(BindingHexEntityModel.MOTH_MODEL, BindingHexEntityModel::getTexturedModelData);
     }
 }

@@ -58,47 +58,47 @@ public abstract class LivingEntityMixin extends Entity implements Attackable {
             }
         }
 
-        if (deathSource.isOf(RedemptionDamageSources.ENKEY)) {
-            if (!living.hasVehicle() && living.getVehicle() instanceof BindingHexEntity) {
-                living.setHealth(living.getMaxHealth());
-                BindingHexEntity hex = new BindingHexEntity(RedemptionEntities.BINDING_HEX, getWorld());
-
-                hex.updatePosition(living.getX(), living.getY(), living.getZ());
-                living.startRiding(hex);
-
-                if (getWorld() instanceof ServerWorld serverWorld) {
-                    serverWorld.spawnEntity(hex);
-
-                    for (ServerPlayerEntity serverPlayer : serverWorld.getPlayers()) {
-                        FlashComponent flash = FlashComponent.KEY.get(serverPlayer);
-                        flash.flashTicks = 20;
-                        flash.sync();
-
-                        if (serverPlayer instanceof ScreenShaker screenShaker) {
-                            screenShaker.addScreenShake(2, 1);
-                        }
-                    }
-                }
-
-                cir.setReturnValue(true);
-            } else {
-                if (getWorld() instanceof ServerWorld serverWorld) {
-                    serverWorld.spawnParticles(ParticleTypes.END_ROD, living.getX(), living.getY(), living.getZ(), 50, 0, 0, 0, 0.3);
-                    for (ServerPlayerEntity serverPlayer : serverWorld.getPlayers()) {
-                        FlashComponent flash = FlashComponent.KEY.get(serverPlayer);
-                        flash.flashTicks = 20;
-                        flash.sync();
-
-                        if (serverPlayer instanceof ScreenShaker screenShaker) {
-                            screenShaker.addScreenShake(1, 5);
-                        }
-
-                        serverPlayer.sendMessage(Text.literal(living.getNameForScoreboard() + " left the game").formatted(Formatting.YELLOW));
-                    }
-                }
-                cir.setReturnValue(false);
-            }
-        }
+//        if (deathSource.isOf(RedemptionDamageSources.ENKEY)) {
+//            if (!living.hasVehicle() && living.getVehicle() instanceof BindingHexEntity) {
+//                living.setHealth(living.getMaxHealth());
+//                BindingHexEntity hex = new BindingHexEntity(RedemptionEntities.BINDING_HEX, getWorld());
+//
+//                hex.updatePosition(living.getX(), living.getY(), living.getZ());
+//                living.startRiding(hex);
+//
+//                if (getWorld() instanceof ServerWorld serverWorld) {
+//                    serverWorld.spawnEntity(hex);
+//
+//                    for (ServerPlayerEntity serverPlayer : serverWorld.getPlayers()) {
+//                        FlashComponent flash = FlashComponent.KEY.get(serverPlayer);
+//                        flash.flashTicks = 20;
+//                        flash.sync();
+//
+//                        if (serverPlayer instanceof ScreenShaker screenShaker) {
+//                            screenShaker.addScreenShake(2, 1);
+//                        }
+//                    }
+//                }
+//
+//                cir.setReturnValue(true);
+//            } else {
+//                if (getWorld() instanceof ServerWorld serverWorld) {
+//                    serverWorld.spawnParticles(ParticleTypes.END_ROD, living.getX(), living.getY(), living.getZ(), 50, 0, 0, 0, 0.3);
+//                    for (ServerPlayerEntity serverPlayer : serverWorld.getPlayers()) {
+//                        FlashComponent flash = FlashComponent.KEY.get(serverPlayer);
+//                        flash.flashTicks = 20;
+//                        flash.sync();
+//
+//                        if (serverPlayer instanceof ScreenShaker screenShaker) {
+//                            screenShaker.addScreenShake(1, 5);
+//                        }
+//
+//                        serverPlayer.sendMessage(Text.literal(living.getNameForScoreboard() + " left the game").formatted(Formatting.YELLOW));
+//                    }
+//                }
+//                cir.setReturnValue(false);
+//            }
+//        }
     }
 
     @ModifyReturnValue(method = "getMaxHealth", at = @At("RETURN"))

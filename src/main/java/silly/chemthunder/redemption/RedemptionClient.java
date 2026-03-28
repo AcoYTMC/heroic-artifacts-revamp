@@ -5,10 +5,7 @@ import net.fabricmc.api.ClientModInitializer;
 import net.minecraft.client.render.block.entity.BlockEntityRendererFactories;
 import silly.chemthunder.redemption.block.entity.render.FinalAceBlockEntityRenderer;
 import silly.chemthunder.redemption.event.JudgementRiptideEvent;
-import silly.chemthunder.redemption.index.RedemptionBlockEntities;
-import silly.chemthunder.redemption.index.RedemptionBlocks;
-import silly.chemthunder.redemption.index.RedemptionEntities;
-import silly.chemthunder.redemption.index.RedemptionParticles;
+import silly.chemthunder.redemption.index.*;
 
 public class RedemptionClient implements ClientModInitializer {
 
