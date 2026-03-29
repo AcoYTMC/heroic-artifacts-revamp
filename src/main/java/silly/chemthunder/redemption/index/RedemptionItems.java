@@ -175,6 +175,8 @@ public interface RedemptionItems {
             .maxCount(1)
     ));
 
+    Item TEXTURE_TESTER = create("texture_tester", new Item(new AcornItemSettings()));
+
 //    Item SILENT_KEY = create("silent_key", new SilentKeyItem(new AcornItemSettings()
 //            .twoHanded()
 //            .maxCount(1)
