@@ -4,14 +4,14 @@
   "ingredients": [
     [
       {
-        "item": "redemption:emerald_katana"
+        "item": "redemption:quartz_katana"
       }
     ],
     {
-      "item": "redemption:emerald_sheath"
+      "item": "redemption:quartz_sheath"
     }
   ],
   "result": {
-    "id": "redemption:emerald_sheathed"
+    "id": "redemption:quartz_sheathed"
   }
 }
