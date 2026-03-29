@@ -1,6 +1,7 @@
 {
     "parent": "item/generated",
     "textures": {
-        "layer0": "redemption:item/texture_tester"
+        "layer0": "redemption:item/texture_tester_gui"
+
     }
 }
