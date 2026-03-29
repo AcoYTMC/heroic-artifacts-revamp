@@ -1,8 +1,12 @@
 package silly.chemthunder.redemption.item;
 
 import com.nitron.nitrogen.util.interfaces.ColorableItem;
+import net.acoyt.acornlib.api.item.ModelVaryingItem;
+import net.acoyt.acornlib.api.util.MiscUtils;
+import net.minecraft.client.render.model.json.ModelTransformationMode;
 import net.minecraft.component.type.AttributeModifierSlot;
 import net.minecraft.component.type.AttributeModifiersComponent;
+import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.attribute.EntityAttributeModifier;
 import net.minecraft.entity.attribute.EntityAttributes;
 import net.minecraft.entity.player.PlayerEntity;
@@ -13,10 +17,39 @@ import net.minecraft.util.Identifier;
 import net.minecraft.util.TypedActionResult;
 import net.minecraft.util.UseAction;
 import net.minecraft.world.World;
+import org.jetbrains.annotations.Nullable;
+import silly.chemthunder.redemption.Redemption;
+import silly.chemthunder.redemption.index.RedemptionItems;
 
-public class SheathItem extends Item implements ColorableItem {
+import java.util.Arrays;
+import java.util.List;
+
+public class SheathItem extends Item implements ColorableItem, ModelVaryingItem {
     public SheathItem(Settings settings) {
         super(settings);
+    }
+
+    public static SheathItem.KatanaType getKatanaType(Item item) {
+        SheathItem.KatanaType type = SheathItem.KatanaType.AMETHYST;
+        if (item == RedemptionItems.AMETHYST_SHEATH) {
+            type = SheathItem.KatanaType.AMETHYST;
+        } else if (item == RedemptionItems.REDSTONE_SHEATH) {
+            type = SheathItem.KatanaType.REDSTONE;
+        } else if (item == RedemptionItems.SCULK_SHEATH) {
+            type = SheathItem.KatanaType.SCULK;
+        } else if (item == RedemptionItems.QUARTZ_SHEATH) {
+            type = SheathItem.KatanaType.QUARTZ;
+        } else if (item == RedemptionItems.EMERALD_SHEATH) {
+            type = SheathItem.KatanaType.EMERALD;
+        } else if (item == RedemptionItems.COPPER_SHEATH) {
+            type = SheathItem.KatanaType.COPPER;
+        } else if (item == RedemptionItems.NETHERITE_SHEATH) {
+            type = SheathItem.KatanaType.NETHERITE;
+        } else if (item == RedemptionItems.LAPIS_SHEATH) {
+            type = SheathItem.KatanaType.LAPIS;
+        }
+
+        return type;
     }
 
     @Override
@@ -58,5 +91,52 @@ public class SheathItem extends Item implements ColorableItem {
         ItemStack itemStack = user.getStackInHand(hand);
         user.setCurrentHand(hand);
         return TypedActionResult.consume(itemStack);
+    }
+
+    @Override
+    public Identifier getModel(ModelTransformationMode renderMode, ItemStack stack, @Nullable LivingEntity entity) {
+
+        return switch(getKatanaType(this)) {
+            case AMETHYST -> MiscUtils.isGui(renderMode) ? Redemption.id("court_glass") : Redemption.id("sheath/handheld/amethyst_sheath_handheld");
+            case REDSTONE -> MiscUtils.isGui(renderMode) ? Redemption.id("sheath/redstone_sheath") : Redemption.id("sheath/handheld/redstone_sheath_handheld");
+            case SCULK -> MiscUtils.isGui(renderMode) ? Redemption.id("sheath/sculk_sheath") : Redemption.id("sheath/handheld/sculk_sheath_handheld");
+            case QUARTZ -> MiscUtils.isGui(renderMode) ? Redemption.id("sheath/quartz_sheath") : Redemption.id("sheath/handheld/quartz_sheath_handheld");
+            case EMERALD -> MiscUtils.isGui(renderMode) ? Redemption.id("sheath/emerald_sheath") : Redemption.id("sheath/handheld/emerald_sheath_handheld");
+            case COPPER -> MiscUtils.isGui(renderMode) ? Redemption.id("sheath/copper_sheath") : Redemption.id("sheath/handheld/copper_sheath_handheld");
+            case NETHERITE -> MiscUtils.isGui(renderMode) ? Redemption.id("sheath/netherite_sheath") : Redemption.id("sheath/handheld/netherite_sheath_handheld");
+            case LAPIS -> MiscUtils.isGui(renderMode) ? Redemption.id("sheath/lapis_sheath") : Redemption.id("sheath/handheld/lapis_sheath_handheld");
+        };
+    }
+
+    @Override
+    public List<Identifier> getModelsToLoad() {
+        return Arrays.asList(
+                Redemption.id("court_glass"),
+                Redemption.id("sheath/handheld/amethyst_sheath_handheld"),
+                Redemption.id("sheath/redstone_sheath"),
+                Redemption.id("sheath/handheld/redstone_sheath_handheld"),
+                Redemption.id("sheath/sculk_sheath"),
+                Redemption.id("sheath/handheld/sculk_sheath_handheld"),
+                Redemption.id("sheath/quartz_sheath"),
+                Redemption.id("sheath/handheld/quartz_sheath_handheld"),
+                Redemption.id("sheath/emerald_sheath"),
+                Redemption.id("sheath/handheld/emerald_sheath_handheld"),
+                Redemption.id("sheath/copper_sheath"),
+                Redemption.id("sheath/handheld/copper_sheath_handheld"),
+                Redemption.id("sheath/netherite_sheath"),
+                Redemption.id("sheath/handheld/netherite_sheath_handheld"),
+                Redemption.id("sheath/lapis_sheath"),
+                Redemption.id("sheath/handheld/lapis_sheath_handheld"));
+    }
+
+    public enum KatanaType {
+        REDSTONE,
+        EMERALD,
+        QUARTZ,
+        NETHERITE,
+        COPPER,
+        AMETHYST,
+        LAPIS,
+        SCULK
     }
 }

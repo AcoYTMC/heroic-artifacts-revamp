@@ -1,6 +1,9 @@
 package silly.chemthunder.redemption.item;
 
 import com.nitron.nitrogen.util.interfaces.ColorableItem;
+import net.acoyt.acornlib.api.item.ModelVaryingItem;
+import net.acoyt.acornlib.api.util.MiscUtils;
+import net.minecraft.client.render.model.json.ModelTransformationMode;
 import net.minecraft.component.type.AttributeModifierSlot;
 import net.minecraft.component.type.AttributeModifiersComponent;
 import net.minecraft.entity.EquipmentSlot;
@@ -13,21 +16,26 @@ import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.Hand;
+import net.minecraft.util.Identifier;
 import net.minecraft.util.TypedActionResult;
 import net.minecraft.util.math.Box;
 import net.minecraft.world.World;
+import org.jetbrains.annotations.Nullable;
+import silly.chemthunder.redemption.Redemption;
 import silly.chemthunder.redemption.index.RedemptionItems;
 import silly.chemthunder.redemption.index.RedemptionSoundEvents;
 
+import java.util.Arrays;
 import java.util.List;
 
-public class SheathedKatanaItem extends Item implements ColorableItem {
+public class SheathedKatanaItem extends Item implements ColorableItem, ModelVaryingItem {
     public SheathedKatanaItem(Settings settings) {
         super(settings);
     }
 
+
     public static SheathedKatanaItem.KatanaType getKatanaType(Item item) {
-        SheathedKatanaItem.KatanaType type = null;
+        SheathedKatanaItem.KatanaType type = KatanaType.AMETHYST;
         if (item == RedemptionItems.AMETHYST_SHEATHED) {
             type = KatanaType.AMETHYST;
         } else if (item == RedemptionItems.REDSTONE_SHEATHED) {
@@ -164,7 +172,41 @@ public class SheathedKatanaItem extends Item implements ColorableItem {
                 .build();
     }
 
+    @Override
+    public Identifier getModel(ModelTransformationMode renderMode, ItemStack stack, @Nullable LivingEntity entity) {
 
+        return switch(getKatanaType(this)) {
+            case AMETHYST -> MiscUtils.isGui(renderMode) ? Redemption.id("sheathed/amethyst_sheathed") : Redemption.id("sheathed/handheld/amethyst_sheathed_handheld");
+            case REDSTONE -> MiscUtils.isGui(renderMode) ? Redemption.id("sheathed/redstone_sheathed") : Redemption.id("sheathed/handheld/redstone_sheathed_handheld");
+            case SCULK -> MiscUtils.isGui(renderMode) ? Redemption.id("sheathed/sculk_sheathed") : Redemption.id("sheathed/handheld/sculk_sheathed_handheld");
+            case QUARTZ -> MiscUtils.isGui(renderMode) ? Redemption.id("sheathed/quartz_sheathed") : Redemption.id("sheathed/handheld/quartz_sheathed_handheld");
+            case EMERALD -> MiscUtils.isGui(renderMode) ? Redemption.id("sheathed/emerald_sheathed") : Redemption.id("sheathed/handheld/emerald_sheathed_handheld");
+            case COPPER -> MiscUtils.isGui(renderMode) ? Redemption.id("sheathed/copper_sheathed") : Redemption.id("sheathed/handheld/copper_sheathed_handheld");
+            case NETHERITE -> MiscUtils.isGui(renderMode) ? Redemption.id("sheathed/netherite_sheathed") : Redemption.id("sheathed/handheld/netherite_sheathed_handheld");
+            case LAPIS -> MiscUtils.isGui(renderMode) ? Redemption.id("sheathed/lapis_sheathed") : Redemption.id("sheathed/handheld/lapis_sheathed_handheld");
+        };
+    }
+
+    @Override
+    public List<Identifier> getModelsToLoad() {
+        return Arrays.asList(
+                Redemption.id("sheathed/amethyst_sheathed"),
+                Redemption.id("sheathed/handheld/amethyst_sheathed_handheld"),
+                Redemption.id("sheathed/redstone_sheathed"),
+                Redemption.id("sheathed/handheld/redstone_sheathed_handheld"),
+                Redemption.id("sheathed/sculk_sheathed"),
+                Redemption.id("sheathed/handheld/sculk_sheathed_handheld"),
+                Redemption.id("sheathed/quartz_sheathed"),
+                Redemption.id("sheathed/handheld/quartz_sheathed_handheld"),
+                Redemption.id("sheathed/emerald_sheathed"),
+                Redemption.id("sheathed/handheld/emerald_sheathed_handheld"),
+                Redemption.id("sheathed/copper_sheathed"),
+                Redemption.id("sheathed/handheld/copper_sheathed_handheld"),
+                Redemption.id("sheathed/netherite_sheathed"),
+                Redemption.id("sheathed/handheld/netherite_sheathed_handheld"),
+                Redemption.id("sheathed/lapis_sheathed"),
+                Redemption.id("sheathed/handheld/lapis_sheathed_handheld"));
+    }
 
     public enum KatanaType {
         REDSTONE,
