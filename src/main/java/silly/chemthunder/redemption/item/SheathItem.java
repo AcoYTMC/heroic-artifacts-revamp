@@ -97,36 +97,36 @@ public class SheathItem extends Item implements ColorableItem, ModelVaryingItem 
     public Identifier getModel(ModelTransformationMode renderMode, ItemStack stack, @Nullable LivingEntity entity) {
 
         return switch(getKatanaType(this)) {
-            case AMETHYST -> MiscUtils.isGui(renderMode) ? Redemption.id("court_glass") : Redemption.id("sheath/handheld/amethyst_sheath_handheld");
-            case REDSTONE -> MiscUtils.isGui(renderMode) ? Redemption.id("sheath/redstone_sheath") : Redemption.id("sheath/handheld/redstone_sheath_handheld");
-            case SCULK -> MiscUtils.isGui(renderMode) ? Redemption.id("sheath/sculk_sheath") : Redemption.id("sheath/handheld/sculk_sheath_handheld");
-            case QUARTZ -> MiscUtils.isGui(renderMode) ? Redemption.id("sheath/quartz_sheath") : Redemption.id("sheath/handheld/quartz_sheath_handheld");
-            case EMERALD -> MiscUtils.isGui(renderMode) ? Redemption.id("sheath/emerald_sheath") : Redemption.id("sheath/handheld/emerald_sheath_handheld");
-            case COPPER -> MiscUtils.isGui(renderMode) ? Redemption.id("sheath/copper_sheath") : Redemption.id("sheath/handheld/copper_sheath_handheld");
-            case NETHERITE -> MiscUtils.isGui(renderMode) ? Redemption.id("sheath/netherite_sheath") : Redemption.id("sheath/handheld/netherite_sheath_handheld");
-            case LAPIS -> MiscUtils.isGui(renderMode) ? Redemption.id("sheath/lapis_sheath") : Redemption.id("sheath/handheld/lapis_sheath_handheld");
+            case AMETHYST -> MiscUtils.isGui(renderMode) ? Redemption.id("amethyst_sheath") : Redemption.id("amethyst_sheath_handheld");
+            case REDSTONE -> MiscUtils.isGui(renderMode) ? Redemption.id("redstone_sheath") : Redemption.id("redstone_sheath_handheld");
+            case SCULK -> MiscUtils.isGui(renderMode) ? Redemption.id("sculk_sheath") : Redemption.id("sculk_sheath_handheld");
+            case QUARTZ -> MiscUtils.isGui(renderMode) ? Redemption.id("quartz_sheath") : Redemption.id("quartz_sheath_handheld");
+            case EMERALD -> MiscUtils.isGui(renderMode) ? Redemption.id("emerald_sheath") : Redemption.id("emerald_sheath_handheld");
+            case COPPER -> MiscUtils.isGui(renderMode) ? Redemption.id("copper_sheath") : Redemption.id("copper_sheath_handheld");
+            case NETHERITE -> MiscUtils.isGui(renderMode) ? Redemption.id("netherite_sheath") : Redemption.id("netherite_sheath_handheld");
+            case LAPIS -> MiscUtils.isGui(renderMode) ? Redemption.id("lapis_sheath") : Redemption.id("lapis_sheath_handheld");
         };
     }
 
     @Override
     public List<Identifier> getModelsToLoad() {
         return Arrays.asList(
-                Redemption.id("court_glass"),
-                Redemption.id("sheath/handheld/amethyst_sheath_handheld"),
-                Redemption.id("sheath/redstone_sheath"),
-                Redemption.id("sheath/handheld/redstone_sheath_handheld"),
-                Redemption.id("sheath/sculk_sheath"),
-                Redemption.id("sheath/handheld/sculk_sheath_handheld"),
-                Redemption.id("sheath/quartz_sheath"),
-                Redemption.id("sheath/handheld/quartz_sheath_handheld"),
-                Redemption.id("sheath/emerald_sheath"),
-                Redemption.id("sheath/handheld/emerald_sheath_handheld"),
-                Redemption.id("sheath/copper_sheath"),
-                Redemption.id("sheath/handheld/copper_sheath_handheld"),
-                Redemption.id("sheath/netherite_sheath"),
-                Redemption.id("sheath/handheld/netherite_sheath_handheld"),
-                Redemption.id("sheath/lapis_sheath"),
-                Redemption.id("sheath/handheld/lapis_sheath_handheld"));
+                Redemption.id("amethyst_sheath"), 
+                Redemption.id("amethyst_sheath_handheld"),
+                Redemption.id("redstone_sheath"),
+                Redemption.id("redstone_sheath_handheld"),
+                Redemption.id("sculk_sheath"),
+                Redemption.id("sculk_sheath_handheld"),
+                Redemption.id("quartz_sheath"),
+                Redemption.id("quartz_sheath_handheld"),
+                Redemption.id("emerald_sheath"),
+                Redemption.id("emerald_sheath_handheld"),
+                Redemption.id("copper_sheath"),
+                Redemption.id("copper_sheath_handheld"),
+                Redemption.id("netherite_sheath"),
+                Redemption.id("netherite_sheath_handheld"),
+                Redemption.id("lapis_sheath"),
+                Redemption.id("lapis_sheath_handheld"));
     }
 
     public enum KatanaType {

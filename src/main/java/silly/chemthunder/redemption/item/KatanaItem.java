@@ -118,36 +118,36 @@ public class KatanaItem extends Item implements ColorableItem, CustomKillSourceI
     public Identifier getModel(ModelTransformationMode renderMode, ItemStack stack, @Nullable LivingEntity entity) {
 
         return switch(getKatanaType(this)) {
-            case AMETHYST -> MiscUtils.isGui(renderMode) ? Redemption.id("katana/amethyst_katana") : Redemption.id("katana/handheld/amethyst_katana_handheld");
-            case REDSTONE -> MiscUtils.isGui(renderMode) ? Redemption.id("katana/redstone_katana") : Redemption.id("katana/handheld/redstone_katana_handheld");
-            case SCULK -> MiscUtils.isGui(renderMode) ? Redemption.id("katana/sculk_katana") : Redemption.id("katana/handheld/sculk_katana_handheld");
-            case QUARTZ -> MiscUtils.isGui(renderMode) ? Redemption.id("katana/quartz_katana") : Redemption.id("katana/handheld/quartz_katana_handheld");
-            case EMERALD -> MiscUtils.isGui(renderMode) ? Redemption.id("katana/emerald_katana") : Redemption.id("katana/handheld/emerald_katana_handheld");
-            case COPPER -> MiscUtils.isGui(renderMode) ? Redemption.id("katana/copper_katana") : Redemption.id("katana/handheld/copper_katana_handheld");
-            case NETHERITE -> MiscUtils.isGui(renderMode) ? Redemption.id("katana/netherite_katana") : Redemption.id("katana/handheld/netherite_katana_handheld");
-            case LAPIS  -> MiscUtils.isGui(renderMode) ? Redemption.id("katana/lapis_katana") : Redemption.id("katana/handheld/lapis_katana_handheld");
+            case AMETHYST -> MiscUtils.isGui(renderMode) ? Redemption.id("amethyst_katana") : Redemption.id("amethyst_katana_handheld");
+            case REDSTONE -> MiscUtils.isGui(renderMode) ? Redemption.id("redstone_katana") : Redemption.id("redstone_katana_handheld");
+            case SCULK -> MiscUtils.isGui(renderMode) ? Redemption.id("sculk_katana") : Redemption.id("sculk_katana_handheld");
+            case QUARTZ -> MiscUtils.isGui(renderMode) ? Redemption.id("quartz_katana") : Redemption.id("quartz_katana_handheld");
+            case EMERALD -> MiscUtils.isGui(renderMode) ? Redemption.id("emerald_katana") : Redemption.id("emerald_katana_handheld");
+            case COPPER -> MiscUtils.isGui(renderMode) ? Redemption.id("copper_katana") : Redemption.id("copper_katana_handheld");
+            case NETHERITE -> MiscUtils.isGui(renderMode) ? Redemption.id("netherite_katana") : Redemption.id("netherite_katana_handheld");
+            case LAPIS  -> MiscUtils.isGui(renderMode) ? Redemption.id("lapis_katana") : Redemption.id("lapis_katana_handheld");
         };
     }
 
     @Override
     public List<Identifier> getModelsToLoad() {
         return Arrays.asList(
-                Redemption.id("katana/amethyst_katana"),
-                Redemption.id("katana/handheld/amethyst_katana_handheld"),
-                Redemption.id("katana/redstone_katana"),
-                Redemption.id("katana/handheld/redstone_katana_handheld"),
-                Redemption.id("katana/sculk_katana"),
-                Redemption.id("katana/handheld/sculk_katana_handheld"),
-                Redemption.id("katana/quartz_katana"),
-                Redemption.id("katana/handheld/quartz_katana_handheld"),
-                Redemption.id("katana/emerald_katana"),
-                Redemption.id("katana/handheld/emerald_katana_handheld"),
-                Redemption.id("katana/copper_katana"),
-                Redemption.id("katana/handheld/copper_katana_handheld"),
-                Redemption.id("katana/netherite_katana"),
-                Redemption.id("katana/handheld/netherite_katana_handheld"),
-                Redemption.id("katana/lapis_katana"),
-                Redemption.id("katana/handheld/lapis_katana_handheld"));
+                Redemption.id("amethyst_katana"),
+                Redemption.id("amethyst_katana_handheld"),
+                Redemption.id("redstone_katana"),
+                Redemption.id("redstone_katana_handheld"),
+                Redemption.id("sculk_katana"),
+                Redemption.id("sculk_katana_handheld"),
+                Redemption.id("quartz_katana"),
+                Redemption.id("quartz_katana_handheld"),
+                Redemption.id("emerald_katana"),
+                Redemption.id("emerald_katana_handheld"),
+                Redemption.id("copper_katana"),
+                Redemption.id("copper_katana_handheld"),
+                Redemption.id("netherite_katana"),
+                Redemption.id("netherite_katana_handheld"),
+                Redemption.id("lapis_katana"),
+                Redemption.id("lapis_katana_handheld"));
     }
 
     public enum KatanaType {
