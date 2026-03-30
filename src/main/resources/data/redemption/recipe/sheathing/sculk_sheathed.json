@@ -4,14 +4,14 @@
   "ingredients": [
     [
       {
-        "item": "redemption:amethyst_katana"
+        "item": "redemption:sculk_katana"
       }
     ],
     {
-      "item": "redemption:amethyst_sheath"
+      "item": "redemption:sculk_sheath"
     }
   ],
   "result": {
-    "id": "redemption:amethyst_sheathed"
+    "id": "redemption:sculk_sheathed"
   }
 }

@@ -60,7 +60,7 @@ public class KatanaItem extends Item implements ColorableItem, CustomKillSourceI
         return AttributeModifiersComponent.builder()
                 .add(
                         EntityAttributes.GENERIC_ATTACK_DAMAGE,
-                        new EntityAttributeModifier(BASE_ATTACK_DAMAGE_MODIFIER_ID, 4.5f, EntityAttributeModifier.Operation.ADD_VALUE),
+                        new EntityAttributeModifier(BASE_ATTACK_DAMAGE_MODIFIER_ID, 6.5f, EntityAttributeModifier.Operation.ADD_VALUE),
                         AttributeModifierSlot.MAINHAND
                 )
                 .add(
