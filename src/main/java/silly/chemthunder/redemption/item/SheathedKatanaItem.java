@@ -76,7 +76,7 @@ public class SheathedKatanaItem extends Item implements ColorableItem, ModelVary
             if (getKatanaType(item) == KatanaType.LAPIS) {
                 mainStack = RedemptionItems.LAPIS_KATANA.getDefaultStack();
                 offStack = RedemptionItems.LAPIS_SHEATH.getDefaultStack();
-                effect = new StatusEffectInstance(StatusEffects.LUCK, duration);
+                effect = new StatusEffectInstance(StatusEffects.HASTE, duration);
 
             }
             if (getKatanaType(item) == KatanaType.NETHERITE) {
@@ -87,7 +87,7 @@ public class SheathedKatanaItem extends Item implements ColorableItem, ModelVary
             if (getKatanaType(item) == KatanaType.EMERALD) {
                 mainStack = RedemptionItems.EMERALD_KATANA.getDefaultStack();
                 offStack = RedemptionItems.EMERALD_SHEATH.getDefaultStack();
-                effect = new StatusEffectInstance(StatusEffects.HASTE, duration);
+                effect = new StatusEffectInstance(StatusEffects.HERO_OF_THE_VILLAGE, duration);
             }
             if (getKatanaType(item) == KatanaType.REDSTONE) {
                 mainStack = RedemptionItems.REDSTONE_KATANA.getDefaultStack();
@@ -129,7 +129,7 @@ public class SheathedKatanaItem extends Item implements ColorableItem, ModelVary
 
                 for (LivingEntity entity : entities) {
                     if (!(entity == user)) {
-                        entity.addStatusEffect(new StatusEffectInstance(StatusEffects.DARKNESS, 600));
+                        entity.addStatusEffect(new StatusEffectInstance(StatusEffects.DARKNESS, 400));
                     }
                 }
             }
