@@ -30,12 +30,17 @@ import java.util.Arrays;
 import java.util.List;
 
 public class KatanaItem extends Item implements ColorableItem, CustomKillSourceItem, ModelVaryingItem {
+    public int startColor(ItemStack itemStack) {return 0xFF6e5353;}
+    public int endColor(ItemStack itemStack) {return 0xFF271e1e;}
+    public int backgroundColor(ItemStack itemStack) {return 0xFF1d1212;}
+
     public KatanaItem(Settings settings) {
         super(settings);
     }
 
     public static KatanaItem.KatanaType getKatanaType(Item item) {
         KatanaItem.KatanaType type = KatanaType.AMETHYST;
+
         if (item == RedemptionItems.AMETHYST_KATANA) {
             type = KatanaItem.KatanaType.AMETHYST;
         } else if (item == RedemptionItems.REDSTONE_KATANA) {
@@ -54,6 +59,7 @@ public class KatanaItem extends Item implements ColorableItem, CustomKillSourceI
             type = KatanaItem.KatanaType.LAPIS;
         }
 
+        // use switch statement AHH
         return type;
     }
     public static AttributeModifiersComponent createAttributeModifiers() {
@@ -76,32 +82,14 @@ public class KatanaItem extends Item implements ColorableItem, CustomKillSourceI
                 .build();
     }
 
-    @Override
-    public int startColor(ItemStack itemStack) {
-        return 0xFF6e5353;
-    }
-
-    @Override
-    public int endColor(ItemStack itemStack) {
-        return 0xFF271e1e;
-    }
-
-    @Override
-    public int backgroundColor(ItemStack itemStack) {
-        return 0xF01d1212;
-    }
-
-    @Override
     public DamageSource getKillSource(LivingEntity livingEntity) {
         return RedemptionDamageSources.katana(livingEntity);
     }
 
-    @Override
     public boolean canMine(BlockState state, World world, BlockPos pos, PlayerEntity miner) {
         return !miner.isCreative();
     }
 
-    @Override
     public TypedActionResult<ItemStack> use(World world, PlayerEntity user, Hand hand) {
         JudgementPlayerComponent judge = JudgementPlayerComponent.KEY.get(user);
 
@@ -115,38 +103,60 @@ public class KatanaItem extends Item implements ColorableItem, CustomKillSourceI
         return super.use(world, user, hand);
     }
 
-    @Override
     public Identifier getModel(ModelTransformationMode renderMode, ItemStack stack, @Nullable LivingEntity entity) {
+        String texture = "";
+        
+        switch (getKatanaType(this)) {
+            case AMETHYST -> texture = "amethyst";
+            case REDSTONE -> texture = "redstone";
+            case SCULK -> texture = "sculk";
+            case QUARTZ -> texture = "quartz";
+            case EMERALD -> texture = "emerald";
+            case COPPER -> texture = "copper";
+            case NETHERITE -> texture = "netherite";
+            case LAPIS -> texture = "lapis";
+        }
 
-        return switch(getKatanaType(this)) {
-            case AMETHYST -> MiscUtils.isGui(renderMode) ? Redemption.id("amethyst_katana") : Redemption.id("amethyst_katana_handheld");
-            case REDSTONE -> MiscUtils.isGui(renderMode) ? Redemption.id("redstone_katana") : Redemption.id("redstone_katana_handheld");
-            case SCULK -> MiscUtils.isGui(renderMode) ? Redemption.id("sculk_katana") : Redemption.id("sculk_katana_handheld");
-            case QUARTZ -> MiscUtils.isGui(renderMode) ? Redemption.id("quartz_katana") : Redemption.id("quartz_katana_handheld");
-            case EMERALD -> MiscUtils.isGui(renderMode) ? Redemption.id("emerald_katana") : Redemption.id("emerald_katana_handheld");
-            case COPPER -> MiscUtils.isGui(renderMode) ? Redemption.id("copper_katana") : Redemption.id("copper_katana_handheld");
-            case NETHERITE -> MiscUtils.isGui(renderMode) ? Redemption.id("netherite_katana") : Redemption.id("netherite_katana_handheld");
-            case LAPIS  -> MiscUtils.isGui(renderMode) ? Redemption.id("lapis_katana") : Redemption.id("lapis_katana_handheld");
-        };
+        Identifier textureId = Redemption.id(texture + "_katana");
+        Identifier altId = Redemption.id(texture + "_katana_handheld");
+
+        // return switch(getKatanaType(this)) {
+        //     case AMETHYST -> MiscUtils.isGui(renderMode) ? Redemption.id("amethyst_katana") : Redemption.id("amethyst_katana_handheld");
+        //     case REDSTONE -> MiscUtils.isGui(renderMode) ? Redemption.id("redstone_katana") : Redemption.id("redstone_katana_handheld");
+        //     case SCULK -> MiscUtils.isGui(renderMode) ? Redemption.id("sculk_katana") : Redemption.id("sculk_katana_handheld");
+        //     case QUARTZ -> MiscUtils.isGui(renderMode) ? Redemption.id("quartz_katana") : Redemption.id("quartz_katana_handheld");
+        //     case EMERALD -> MiscUtils.isGui(renderMode) ? Redemption.id("emerald_katana") : Redemption.id("emerald_katana_handheld");
+        //     case COPPER -> MiscUtils.isGui(renderMode) ? Redemption.id("copper_katana") : Redemption.id("copper_katana_handheld");
+        //     case NETHERITE -> MiscUtils.isGui(renderMode) ? Redemption.id("netherite_katana") : Redemption.id("netherite_katana_handheld");
+        //     case LAPIS  -> MiscUtils.isGui(renderMode) ? Redemption.id("lapis_katana") : Redemption.id("lapis_katana_handheld");
+        // };
+
+        return MiscUtils.isGui(renderMode) ? textureId : altId;
     }
 
-    @Override
     public List<Identifier> getModelsToLoad() {
         return Arrays.asList(
                 Redemption.id("amethyst_katana"),
                 Redemption.id("amethyst_katana_handheld"),
+
                 Redemption.id("redstone_katana"),
                 Redemption.id("redstone_katana_handheld"),
+
                 Redemption.id("sculk_katana"),
                 Redemption.id("sculk_katana_handheld"),
+
                 Redemption.id("quartz_katana"),
                 Redemption.id("quartz_katana_handheld"),
+
                 Redemption.id("emerald_katana"),
                 Redemption.id("emerald_katana_handheld"),
+
                 Redemption.id("copper_katana"),
                 Redemption.id("copper_katana_handheld"),
+
                 Redemption.id("netherite_katana"),
                 Redemption.id("netherite_katana_handheld"),
+
                 Redemption.id("lapis_katana"),
                 Redemption.id("lapis_katana_handheld"));
     }

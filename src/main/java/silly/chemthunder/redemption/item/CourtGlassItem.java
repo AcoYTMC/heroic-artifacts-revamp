@@ -33,37 +33,34 @@ public class CourtGlassItem extends Item implements ColorableItem {
         super(settings);
     }
 
-    @Override
     public boolean hasGlint(ItemStack stack) {
         return true;
     }
 
-
-    @Override
     public int startColor(ItemStack itemStack) {
         return 0xFF00fbff;
     }
 
-    @Override
     public int endColor(ItemStack itemStack) {
         return 0xFF153030;
     }
 
-    @Override
     public int backgroundColor(ItemStack itemStack) {
         return 0xF0040a0a;
     }
 
-    @Override
     public void appendTooltip(ItemStack stack, TooltipContext context, List<Text> tooltip, TooltipType type) {
         int color = 0x26bdbd;
         tooltip.add(Text.translatable("lore.court_glass_1").withColor(color));
         tooltip.add(Text.translatable("lore.court_glass_2").withColor(color));
         tooltip.add(Text.translatable("lore.court_glass_3").withColor(color));
+
+        // for (int i = 0; i < 3; i++) {
+        //     tooltip.add(Text.translatable("lore.court_glass_" + (i + 1)).withColor(color));
+        // }
         super.appendTooltip(stack, context, tooltip, type);
     }
 
-    @Override
     public TypedActionResult<ItemStack> use(World world, PlayerEntity user, Hand hand) {
         if (user.isSneaking()) {
             if (user.getOffHandStack().isOf(this)) {
@@ -80,7 +77,6 @@ public class CourtGlassItem extends Item implements ColorableItem {
         double y = player.getY();
         double z = player.getZ();
         JudgementPlayerComponent judge = JudgementPlayerComponent.KEY.get(player);
-
 
         judge.isJudgement = true;
         judge.sync();

@@ -18,12 +18,10 @@ public class ModelVaryingTextureTester extends Item implements ModelVaryingItem 
         super(settings);
     }
 
-    @Override
     public Identifier getModel(ModelTransformationMode renderMode, ItemStack stack, @Nullable LivingEntity entity) {
         return MiscUtils.isGui(renderMode) ? Redemption.id("texture_tester") : Redemption.id("texture_tester_handheld");
     }
 
-    @Override
     public List<Identifier> getModelsToLoad() {
         return Arrays.asList(
                 Redemption.id("texture_tester"),

@@ -12,16 +12,8 @@ import java.util.ArrayList;
 
 public class Redemption implements ModInitializer {
 	public static final String MOD_ID = "redemption";
-
-    public static Identifier id(String path) {
-        return Identifier.of(MOD_ID, path);
-    }
 	public static final Logger LOGGER = LoggerFactory.getLogger(MOD_ID);
 
-    public static final ArrayList<BlockPos> STORM_EYES = new ArrayList<>();
-
-
-	@Override
 	public void onInitialize() {
         RedemptionItems.index();
         RedemptionItemGroups.index();
@@ -38,4 +30,8 @@ public class Redemption implements ModInitializer {
         // alib
         ALib.registerModMenu(MOD_ID, 0xe95050);
 	}
+
+    public static Identifier id(String path) {
+        return Identifier.of(MOD_ID, path);
+    }
 }

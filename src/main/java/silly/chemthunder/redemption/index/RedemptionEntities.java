@@ -16,8 +16,6 @@ import silly.chemthunder.redemption.client.entity.BindingHexRenderer;
 import silly.chemthunder.redemption.entity.BindingHexEntity;
 
 public interface RedemptionEntities {
-
-
 //    EntityType<BindingHexEntity> BINDING_HEX = create(
 //            "binding_hex",
 //            EntityType.Builder.create(
@@ -31,23 +29,7 @@ public interface RedemptionEntities {
         return Registry.register(Registries.ENTITY_TYPE, key.getValue(), builder.build(String.valueOf(key)));
     }
 
-    static void index() {
-//        // Entities are Registered Statically
-//        FabricDefaultAttributeRegistry.register(MOTH, MothEntity.createAttribute());
-//        FabricDefaultAttributeRegistry.register(MOTH_SATIN, MothEntity.createAttribute());
-//        FabricDefaultAttributeRegistry.register(DUSTY_MOTH, MothEntity.createAttribute());
-//        FabricDefaultAttributeRegistry.register(MOTH_REDHEAD, MothEntity.createAttribute());
-//
-//        FabricDefaultAttributeRegistry.register(BINDING_HEX, BindingHexEntity.createAttribute());
-    }
+    static void index() {}
 
-    static void clientIndex() {
-//        EntityModelLayerRegistry.registerModelLayer(MothModelEntity.MOTH_MODEL, MothModelEntity::getTexturedModelData);
-//        EntityRendererRegistry.register(MOTH, MothEntityRenderer::new);
-//        EntityRendererRegistry.register(MOTH_SATIN, MothEntityRenderer::new);
-//        EntityRendererRegistry.register(MOTH_REDHEAD, MothEntityRenderer::new);
-//        EntityRendererRegistry.register(DUSTY_MOTH, MothEntityRenderer::new);
-//        EntityRendererRegistry.register(BINDING_HEX, BindingHexRenderer::new);
-//        EntityModelLayerRegistry.registerModelLayer(BindingHexEntityModel.MOTH_MODEL, BindingHexEntityModel::getTexturedModelData);
-    }
+    static void clientIndex() {}
 }

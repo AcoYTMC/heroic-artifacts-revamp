@@ -18,9 +18,9 @@ import java.util.function.Function;
 import static net.acoyt.acornlib.api.util.ItemUtils.modifyItemNameColor;
 
 public interface RedemptionItems {
-    Map<Item, Identifier> ITEMS = new LinkedHashMap<>();
+        // ItemRegistrant ITEMS = new ItemRegistrant(Redemption.MOD_ID);
 
-    //  Item WEAPON_RACK = create("weapon_rack", new WeaponRackItem(new Item.Settings()));
+    Map<Item, Identifier> ITEMS = new LinkedHashMap<>();
 
     Item QUARTZ_KATANA = create("quartz_katana", new KatanaItem(new AcornItemSettings()
             .sweepParticle(0xc1c1d2, 0x535373)
@@ -81,7 +81,6 @@ public interface RedemptionItems {
             .fireproof()
             .attributeModifiers(KatanaItem.createAttributeModifiers())
     ));
-
 
     Item QUARTZ_SHEATH = create("quartz_sheath", new SheathItem(new AcornItemSettings()
             .maxCount(1)
@@ -177,16 +176,6 @@ public interface RedemptionItems {
 
     Item TEXTURE_TESTER = create("texture_tester", new ModelVaryingTextureTester(new AcornItemSettings()));
 
-//    Item SILENT_KEY = create("silent_key", new SilentKeyItem(new AcornItemSettings()
-//            .twoHanded()
-//            .maxCount(1)
-//            .attributeModifiers(SilentKeyItem.createAttributeModifiers())
-//    ));
-//
-//    Item FINAL_ACE_BLOCK_ITEM = create("final_ace", new FinalAceBlockItem(new AcornItemSettings()
-//            .maxCount(1)
-//    ));
-
     static <T extends Item> T create(String name, T item) {
         ITEMS.put(item, Redemption.id(name));
         return item;
@@ -228,11 +217,8 @@ public interface RedemptionItems {
         modifyItemNameColor(NETHERITE_SHEATH, 0xe4d971);
         modifyItemNameColor(NETHERITE_SHEATHED, 0xe4d971);
 
-
         modifyItemNameColor(HUNTERS_GLASS, 0xb629eb);
         modifyItemNameColor(COURT_GLASS, 0x59ffff);
-        modifyItemNameColor(Item.fromBlock(RedemptionBlocks.FINAL_ACE), 0xff0068);
-//        modifyItemNameColor(SILENT_KEY, 0xff0068);
     }
 
     static Item create(String name, Function<Item.Settings, Item> factory, Item.Settings settings) {

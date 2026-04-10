@@ -26,6 +26,10 @@ public interface RedemptionItemGroups {
     }
 
     private static void addEntries(FabricItemGroupEntries itemGroup) {
+        // for (Item item : RedemptionItems.ITEMS.keySet()) {
+        //     itemGroup.add(item);
+        // }
+
         itemGroup.add(RedemptionItems.REDSTONE_KATANA);
         itemGroup.add(RedemptionItems.REDSTONE_SHEATH);
         itemGroup.add(RedemptionItems.REDSTONE_SHEATHED);
@@ -51,11 +55,7 @@ public interface RedemptionItemGroups {
         itemGroup.add(RedemptionItems.LAPIS_SHEATH);
         itemGroup.add(RedemptionItems.LAPIS_SHEATHED);
 
-
-
         itemGroup.add(RedemptionItems.COURT_GLASS);
         itemGroup.add(RedemptionItems.HUNTERS_GLASS);
-//        itemGroup.add(RedemptionBlocks.FINAL_ACE);
-//        itemGroup.add(RedemptionItems.SILENT_KEY);
     }
 }

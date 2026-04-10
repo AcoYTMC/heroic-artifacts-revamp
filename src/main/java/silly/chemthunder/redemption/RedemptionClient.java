@@ -8,17 +8,12 @@ import silly.chemthunder.redemption.event.JudgementRiptideEvent;
 import silly.chemthunder.redemption.index.*;
 
 public class RedemptionClient implements ClientModInitializer {
-
-
-
-    @Override
     public void onInitializeClient() {
         RedemptionParticles.clientIndex();
         RedemptionBlocks.clientIndex();
         RedemptionEntities.clientIndex();
 
         CustomRiptideEvent.EVENT.register(new JudgementRiptideEvent());
-
         BlockEntityRendererFactories.register(RedemptionBlockEntities.FINAL_ACE, context -> new FinalAceBlockEntityRenderer());
     }
 }

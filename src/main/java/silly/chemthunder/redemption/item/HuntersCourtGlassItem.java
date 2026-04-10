@@ -26,32 +26,25 @@ public class HuntersCourtGlassItem extends Item implements ColorableItem {
         super(settings);
     }
 
-    @Override
     public int startColor(ItemStack itemStack) {
         return 0xFFb629eb;
     }
 
-    @Override
     public int endColor(ItemStack itemStack) {
         return 0xFF460350;
     }
 
-    @Override
     public int backgroundColor(ItemStack itemStack) {
         return 0xF01b1121;
     }
 
-    @Override
     public TypedActionResult<ItemStack> use(World world, PlayerEntity user, Hand hand) {
         double x = user.getX();
         double y = user.getY();
         double z = user.getZ();
-        // var declaration
+        EnshroudedPlayerComponent shroud = EnshroudedPlayerComponent.KEY.get(user);
 
         if (user.getOffHandStack().isOf(this)) {
-            EnshroudedPlayerComponent shroud = EnshroudedPlayerComponent.KEY.get(user);
-
-
             if (!shroud.isShrouded) {
                 shroud.isShrouded = true;
                 user.setInvisible(true);
@@ -74,7 +67,7 @@ public class HuntersCourtGlassItem extends Item implements ColorableItem {
             );
 
             for (LivingEntity entity : entities) {
-                if (!(entity == user)) {
+                if (entity != user) {
                     entity.addStatusEffect(new StatusEffectInstance(StatusEffects.GLOWING, 600));
                     entity.addStatusEffect(new StatusEffectInstance(StatusEffects.SLOWNESS, 600));
                 }
@@ -84,13 +77,16 @@ public class HuntersCourtGlassItem extends Item implements ColorableItem {
         return super.use(world, user, hand);
     }
 
-    @Override
     public void appendTooltip(ItemStack stack, TooltipContext context, List<Text> tooltip, TooltipType type) {
         int color = 0xb629eb;
 
         tooltip.add(Text.translatable("lore.hunters_glass_1").withColor(color));
         tooltip.add(Text.translatable("lore.hunters_glass_2").withColor(color));
         tooltip.add(Text.translatable("lore.hunters_glass_3").withColor(color));
+
+        // for (int i = 0; i < 3; i++) {
+        //     tooltip.add(Text.translatable("lore.hunters_glass_" + (i + 1)).withColor(color));
+        // }
 
         super.appendTooltip(stack, context, tooltip, type);
     }

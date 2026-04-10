@@ -29,10 +29,13 @@ import java.util.Arrays;
 import java.util.List;
 
 public class SheathedKatanaItem extends Item implements ColorableItem, ModelVaryingItem {
+    public int startColor(ItemStack itemStack) {return 0xFF6e5353;}
+    public int endColor(ItemStack itemStack) {return 0xFF271e1e;}
+    public int backgroundColor(ItemStack itemStack) {return 0xFF1d1212;}
+
     public SheathedKatanaItem(Settings settings) {
         super(settings);
     }
-
 
     public static SheathedKatanaItem.KatanaType getKatanaType(Item item) {
         SheathedKatanaItem.KatanaType type = KatanaType.AMETHYST;
@@ -57,7 +60,6 @@ public class SheathedKatanaItem extends Item implements ColorableItem, ModelVary
         return type;
     }
 
-    @Override
     public TypedActionResult<ItemStack> use(World world, PlayerEntity user, Hand hand) {
         ItemStack stack = user.getStackInHand(hand);
         Item item = stack.getItem();
@@ -137,24 +139,8 @@ public class SheathedKatanaItem extends Item implements ColorableItem, ModelVary
 
             // sounds
             user.playSound(RedemptionSoundEvents.UNSHEATHE);
-
         }
         return super.use(world, user, hand);
-    }
-
-    @Override
-    public int startColor(ItemStack itemStack) {
-        return 0xFF6e5353;
-    }
-
-    @Override
-    public int endColor(ItemStack itemStack) {
-        return 0xFF271e1e;
-    }
-
-    @Override
-    public int backgroundColor(ItemStack itemStack) {
-        return 0xF01d1212;
     }
 
     public static AttributeModifiersComponent createAttributeModifiers() {
@@ -172,38 +158,61 @@ public class SheathedKatanaItem extends Item implements ColorableItem, ModelVary
                 .build();
     }
 
-    @Override
     public Identifier getModel(ModelTransformationMode renderMode, ItemStack stack, @Nullable LivingEntity entity) {
+        String texture = "";
+        
+        switch (getKatanaType(this)) {
+            case AMETHYST -> texture = "amethyst";
+            case REDSTONE -> texture = "redstone";
+            case SCULK -> texture = "sculk";
+            case QUARTZ -> texture = "quartz";
+            case EMERALD -> texture = "emerald";
+            case COPPER -> texture = "copper";
+            case NETHERITE -> texture = "netherite";
+            case LAPIS -> texture = "lapis";
+        }
 
-        return switch(getKatanaType(this)) {
-            case AMETHYST -> MiscUtils.isGui(renderMode) ? Redemption.id("amethyst_sheathed") : Redemption.id("amethyst_sheathed_handheld");
-            case REDSTONE -> MiscUtils.isGui(renderMode) ? Redemption.id("redstone_sheathed") : Redemption.id("redstone_sheathed_handheld");
-            case SCULK -> MiscUtils.isGui(renderMode) ? Redemption.id("sculk_sheathed") : Redemption.id("sculk_sheathed_handheld");
-            case QUARTZ -> MiscUtils.isGui(renderMode) ? Redemption.id("quartz_sheathed") : Redemption.id("quartz_sheathed_handheld");
-            case EMERALD -> MiscUtils.isGui(renderMode) ? Redemption.id("emerald_sheathed") : Redemption.id("emerald_sheathed_handheld");
-            case COPPER -> MiscUtils.isGui(renderMode) ? Redemption.id("copper_sheathed") : Redemption.id("copper_sheathed_handheld");
-            case NETHERITE -> MiscUtils.isGui(renderMode) ? Redemption.id("netherite_sheathed") : Redemption.id("netherite_sheathed_handheld");
-            case LAPIS -> MiscUtils.isGui(renderMode) ? Redemption.id("lapis_sheathed") : Redemption.id("lapis_sheathed_handheld");
-        };
+        Identifier textureId = Redemption.id(texture + "_sheathed");
+        Identifier altId = Redemption.id(texture + "_sheathed_handheld");
+
+
+        // return switch(getKatanaType(this)) {
+        //     case AMETHYST -> MiscUtils.isGui(renderMode) ? Redemption.id("amethyst_sheathed") : Redemption.id("amethyst_sheathed_handheld");
+        //     case REDSTONE -> MiscUtils.isGui(renderMode) ? Redemption.id("redstone_sheathed") : Redemption.id("redstone_sheathed_handheld");
+        //     case SCULK -> MiscUtils.isGui(renderMode) ? Redemption.id("sculk_sheathed") : Redemption.id("sculk_sheathed_handheld");
+        //     case QUARTZ -> MiscUtils.isGui(renderMode) ? Redemption.id("quartz_sheathed") : Redemption.id("quartz_sheathed_handheld");
+        //     case EMERALD -> MiscUtils.isGui(renderMode) ? Redemption.id("emerald_sheathed") : Redemption.id("emerald_sheathed_handheld");
+        //     case COPPER -> MiscUtils.isGui(renderMode) ? Redemption.id("copper_sheathed") : Redemption.id("copper_sheathed_handheld");
+        //     case NETHERITE -> MiscUtils.isGui(renderMode) ? Redemption.id("netherite_sheathed") : Redemption.id("netherite_sheathed_handheld");
+        //     case LAPIS -> MiscUtils.isGui(renderMode) ? Redemption.id("lapis_sheathed") : Redemption.id("lapis_sheathed_handheld");
+        // };
+
+        return MiscUtils.isGui(renderMode) ? textureId : altId;
     }
 
-    @Override
     public List<Identifier> getModelsToLoad() {
         return Arrays.asList(
                 Redemption.id("amethyst_sheathed"),
                 Redemption.id("amethyst_sheathed_handheld"),
+
                 Redemption.id("redstone_sheathed"),
                 Redemption.id("redstone_sheathed_handheld"),
+
                 Redemption.id("sculk_sheathed"),
                 Redemption.id("sculk_sheathed_handheld"),
+
                 Redemption.id("quartz_sheathed"),
                 Redemption.id("quartz_sheathed_handheld"),
+
                 Redemption.id("emerald_sheathed"),
                 Redemption.id("emerald_sheathed_handheld"),
+
                 Redemption.id("copper_sheathed"),
                 Redemption.id("copper_sheathed_handheld"),
+
                 Redemption.id("netherite_sheathed"),
                 Redemption.id("netherite_sheathed_handheld"),
+
                 Redemption.id("lapis_sheathed"),
                 Redemption.id("lapis_sheathed_handheld"));
     }

@@ -25,6 +25,10 @@ import java.util.Arrays;
 import java.util.List;
 
 public class SheathItem extends Item implements ColorableItem, ModelVaryingItem {
+    public int startColor(ItemStack itemStack) {return 0xFF6e5353;}
+    public int endColor(ItemStack itemStack) {return 0xFF271e1e;}
+    public int backgroundColor(ItemStack itemStack) {return 0xFF1d1212;}
+
     public SheathItem(Settings settings) {
         super(settings);
     }
@@ -52,21 +56,6 @@ public class SheathItem extends Item implements ColorableItem, ModelVaryingItem 
         return type;
     }
 
-    @Override
-    public int startColor(ItemStack itemStack) {
-        return 0xFF6e5353;
-    }
-
-    @Override
-    public int endColor(ItemStack itemStack) {
-        return 0xFF271e1e;
-    }
-
-    @Override
-    public int backgroundColor(ItemStack itemStack) {
-        return 0xF01d1212;
-    }
-
     public static AttributeModifiersComponent createAttributeModifiers() {
         return AttributeModifiersComponent.builder()
                 .add(
@@ -82,7 +71,6 @@ public class SheathItem extends Item implements ColorableItem, ModelVaryingItem 
                 .build();
     }
 
-    @Override
     public UseAction getUseAction(ItemStack stack) {
         return UseAction.BLOCK;
     }
@@ -93,22 +81,37 @@ public class SheathItem extends Item implements ColorableItem, ModelVaryingItem 
         return TypedActionResult.consume(itemStack);
     }
 
-    @Override
     public Identifier getModel(ModelTransformationMode renderMode, ItemStack stack, @Nullable LivingEntity entity) {
+        String texture = "";
+        
+        switch (getKatanaType(this)) {
+            case AMETHYST -> texture = "amethyst";
+            case REDSTONE -> texture = "redstone";
+            case SCULK -> texture = "sculk";
+            case QUARTZ -> texture = "quartz";
+            case EMERALD -> texture = "emerald";
+            case COPPER -> texture = "copper";
+            case NETHERITE -> texture = "netherite";
+            case LAPIS -> texture = "lapis";
+        }
 
-        return switch(getKatanaType(this)) {
-            case AMETHYST -> MiscUtils.isGui(renderMode) ? Redemption.id("amethyst_sheath") : Redemption.id("amethyst_sheath_handheld");
-            case REDSTONE -> MiscUtils.isGui(renderMode) ? Redemption.id("redstone_sheath") : Redemption.id("redstone_sheath_handheld");
-            case SCULK -> MiscUtils.isGui(renderMode) ? Redemption.id("sculk_sheath") : Redemption.id("sculk_sheath_handheld");
-            case QUARTZ -> MiscUtils.isGui(renderMode) ? Redemption.id("quartz_sheath") : Redemption.id("quartz_sheath_handheld");
-            case EMERALD -> MiscUtils.isGui(renderMode) ? Redemption.id("emerald_sheath") : Redemption.id("emerald_sheath_handheld");
-            case COPPER -> MiscUtils.isGui(renderMode) ? Redemption.id("copper_sheath") : Redemption.id("copper_sheath_handheld");
-            case NETHERITE -> MiscUtils.isGui(renderMode) ? Redemption.id("netherite_sheath") : Redemption.id("netherite_sheath_handheld");
-            case LAPIS -> MiscUtils.isGui(renderMode) ? Redemption.id("lapis_sheath") : Redemption.id("lapis_sheath_handheld");
-        };
+        Identifier textureId = Redemption.id(texture + "_sheath");
+        Identifier altId = Redemption.id(texture + "_sheath_handheld");
+
+        // return switch(getKatanaType(this)) {
+        //     case AMETHYST -> MiscUtils.isGui(renderMode) ? Redemption.id("amethyst_sheath") : Redemption.id("amethyst_sheath_handheld");
+        //     case REDSTONE -> MiscUtils.isGui(renderMode) ? Redemption.id("redstone_sheath") : Redemption.id("redstone_sheath_handheld");
+        //     case SCULK -> MiscUtils.isGui(renderMode) ? Redemption.id("sculk_sheath") : Redemption.id("sculk_sheath_handheld");
+        //     case QUARTZ -> MiscUtils.isGui(renderMode) ? Redemption.id("quartz_sheath") : Redemption.id("quartz_sheath_handheld");
+        //     case EMERALD -> MiscUtils.isGui(renderMode) ? Redemption.id("emerald_sheath") : Redemption.id("emerald_sheath_handheld");
+        //     case COPPER -> MiscUtils.isGui(renderMode) ? Redemption.id("copper_sheath") : Redemption.id("copper_sheath_handheld");
+        //     case NETHERITE -> MiscUtils.isGui(renderMode) ? Redemption.id("netherite_sheath") : Redemption.id("netherite_sheath_handheld");
+        //     case LAPIS -> MiscUtils.isGui(renderMode) ? Redemption.id("lapis_sheath") : Redemption.id("lapis_sheath_handheld");
+        // };
+
+        return MiscUtils.isGui(renderMode) ? textureId : altId;
     }
 
-    @Override
     public List<Identifier> getModelsToLoad() {
         return Arrays.asList(
                 Redemption.id("amethyst_sheath"), 
