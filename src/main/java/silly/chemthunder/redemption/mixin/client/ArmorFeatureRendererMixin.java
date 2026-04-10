@@ -13,8 +13,8 @@ import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
-import silly.chemthunder.redemption.cca.EnshroudedPlayerComponent;
-import silly.chemthunder.redemption.cca.JudgementPlayerComponent;
+import silly.chemthunder.redemption.cca.entity.EnshroudedComponent;
+import silly.chemthunder.redemption.cca.entity.JudgementComponent;
 
 @Mixin(ArmorFeatureRenderer.class)
 public abstract class ArmorFeatureRendererMixin<T extends LivingEntity, M extends BipedEntityModel<T>, A extends BipedEntityModel<T>> extends FeatureRenderer<T, M> {
@@ -25,7 +25,7 @@ public abstract class ArmorFeatureRendererMixin<T extends LivingEntity, M extend
     @Inject(method = "renderArmor", at = @At("HEAD"), cancellable = true)
     private void cancelArmorRenderingBecauseSimoneIsAwesome(MatrixStack matrices, VertexConsumerProvider vertexConsumers, T entity, EquipmentSlot armorSlot, int light, A model, CallbackInfo ci) {
         if (entity instanceof PlayerEntity player) {
-            if (EnshroudedPlayerComponent.KEY.get(player).isShrouded || JudgementPlayerComponent.KEY.get(player).isJudgement) {
+            if (EnshroudedComponent.KEY.get(player).isShrouded || JudgementComponent.KEY.get(player).isJudgement) {
                 ci.cancel();
             }
         }

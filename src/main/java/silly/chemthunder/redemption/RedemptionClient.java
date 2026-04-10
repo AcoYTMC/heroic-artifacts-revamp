@@ -2,14 +2,13 @@ package silly.chemthunder.redemption;
 
 import net.acoyt.acornlib.api.event.CustomRiptideEvent;
 import net.fabricmc.api.ClientModInitializer;
-import net.minecraft.client.render.block.entity.BlockEntityRendererFactories;
 import silly.chemthunder.redemption.event.JudgementRiptideEvent;
-import silly.chemthunder.redemption.index.*;
+import silly.chemthunder.redemption.index.RedemptionEntities;
+import silly.chemthunder.redemption.index.RedemptionParticles;
 
 public class RedemptionClient implements ClientModInitializer {
     public void onInitializeClient() {
         RedemptionParticles.clientIndex();
-        RedemptionBlocks.clientIndex();
         RedemptionEntities.clientIndex();
 
         CustomRiptideEvent.EVENT.register(new JudgementRiptideEvent());

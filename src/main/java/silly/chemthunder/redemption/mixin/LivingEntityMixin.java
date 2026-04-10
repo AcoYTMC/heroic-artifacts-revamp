@@ -3,30 +3,19 @@ package silly.chemthunder.redemption.mixin;
 import com.llamalad7.mixinextras.injector.ModifyReturnValue;
 import com.llamalad7.mixinextras.injector.wrapmethod.WrapMethod;
 import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
-import com.nitron.nitrogen.util.interfaces.ScreenShaker;
 import net.minecraft.entity.Attackable;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.damage.DamageSource;
 import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.particle.ParticleTypes;
-import net.minecraft.server.network.ServerPlayerEntity;
-import net.minecraft.server.world.ServerWorld;
-import net.minecraft.text.Text;
-import net.minecraft.util.Formatting;
 import net.minecraft.world.World;
-import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
-import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
-import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
-import silly.chemthunder.redemption.cca.FlashComponent;
-import silly.chemthunder.redemption.cca.JudgementPlayerComponent;
-import silly.chemthunder.redemption.index.RedemptionDamageSources;
-import silly.chemthunder.redemption.index.RedemptionEntities;
+import silly.chemthunder.redemption.cca.entity.JudgementComponent;
+import silly.chemthunder.redemption.index.data.RedemptionDamageSources;
 
 @Mixin(LivingEntity.class)
 public abstract class LivingEntityMixin extends Entity implements Attackable {
@@ -39,7 +28,7 @@ public abstract class LivingEntityMixin extends Entity implements Attackable {
         LivingEntity living = (LivingEntity) (Object) this;
 
         if (living instanceof PlayerEntity player) {
-            JudgementPlayerComponent judge = JudgementPlayerComponent.KEY.get(player);
+            JudgementComponent judge = JudgementComponent.KEY.get(player);
 
             if (judge.isJudgement) {
                 if (!deathSource.isOf(RedemptionDamageSources.DESCEND)) {
@@ -62,7 +51,7 @@ public abstract class LivingEntityMixin extends Entity implements Attackable {
     private float judge$maxHealth(float original) {
         LivingEntity living = (LivingEntity) (Object) this;
 
-        if (living instanceof PlayerEntity player && JudgementPlayerComponent.KEY.get(player).isJudgement) {
+        if (living instanceof PlayerEntity player && JudgementComponent.KEY.get(player).isJudgement) {
             return 40.0f;
         }
         return original;
@@ -73,7 +62,7 @@ public abstract class LivingEntityMixin extends Entity implements Attackable {
         LivingEntity living = (LivingEntity) (Object) this;
 
         if (living instanceof PlayerEntity player) {
-            original.call(JudgementPlayerComponent.KEY.get(player).isJudgement ? amount * 2 : amount);
+            original.call(JudgementComponent.KEY.get(player).isJudgement ? amount * 2 : amount);
         } else {
             original.call(amount);
         }

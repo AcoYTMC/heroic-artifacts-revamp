@@ -10,17 +10,16 @@ import net.minecraft.particle.ParticleTypes;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
-import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
-import silly.chemthunder.redemption.cca.EnshroudedPlayerComponent;
-import silly.chemthunder.redemption.cca.JudgementPlayerComponent;
+import silly.chemthunder.redemption.cca.entity.EnshroudedComponent;
+import silly.chemthunder.redemption.cca.entity.JudgementComponent;
 import silly.chemthunder.redemption.index.RedemptionParticles;
-import silly.chemthunder.redemption.index.RedemptionTags;
+import silly.chemthunder.redemption.index.tag.RedemptionItemTags;
 
 @Mixin(PlayerEntity.class)
 public abstract class PlayerEntityMixin extends LivingEntity {
@@ -32,7 +31,7 @@ public abstract class PlayerEntityMixin extends LivingEntity {
     private void cancelStepSounds(BlockPos pos, BlockState state, CallbackInfo ci) {
         PlayerEntity player = (PlayerEntity) (Object) this;
 
-        if (EnshroudedPlayerComponent.KEY.get(player).isShrouded) {
+        if (EnshroudedComponent.KEY.get(player).isShrouded) {
             ci.cancel();
         }
     }
@@ -50,7 +49,11 @@ public abstract class PlayerEntityMixin extends LivingEntity {
     }
 
     @Unique public void disableCloak(PlayerEntity player) {
-        EnshroudedPlayerComponent comp = EnshroudedPlayerComponent.KEY.get(player);
+        EnshroudedComponent comp = EnshroudedComponent.KEY.get(player);
+        double x = player.getX();
+        double y = player.getY();
+        double z = player.getZ();
+
         if (comp.isShrouded) {
             comp.isShrouded = false;
             comp.sync();
@@ -65,7 +68,7 @@ public abstract class PlayerEntityMixin extends LivingEntity {
     @Inject(method = "tick", at = @At("HEAD"))
     private void playerTicker(CallbackInfo ci) {
         PlayerEntity player = (PlayerEntity) (Object) this;
-        if (player.getStackInHand(player.getActiveHand()).isIn(RedemptionTags.KATANAS) && player.isUsingItem() && JudgementPlayerComponent.KEY.get(player).isJudgement) {
+        if (player.getStackInHand(player.getActiveHand()).isIn(RedemptionItemTags.KATANAS) && player.isUsingItem() && JudgementComponent.KEY.get(player).isJudgement) {
             getWorld().addParticle(ParticleTypes.SCULK_SOUL, true, player.getX(), player.getY(), player.getZ(), 0, 0, 0);
         }
     }

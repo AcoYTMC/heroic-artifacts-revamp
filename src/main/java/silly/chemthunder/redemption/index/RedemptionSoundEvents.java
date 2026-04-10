@@ -1,23 +1,18 @@
 package silly.chemthunder.redemption.index;
 
-import net.minecraft.registry.Registries;
-import net.minecraft.registry.Registry;
+import net.acoyt.acornlib.api.registrants.SoundEventRegistrant;
 import net.minecraft.sound.SoundEvent;
-import net.minecraft.util.Identifier;
 import silly.chemthunder.redemption.Redemption;
 
 public interface RedemptionSoundEvents {
-    SoundEvent HUNTER_BLACKOUT = create("item.hunter.blackout");
-    SoundEvent UNSHEATHE = create("item.unsheathe");
-    SoundEvent BECOME_JUDGE = create("event.become_judge");
-    SoundEvent JUDGE_DEATH = create("event.judge_death");
-    SoundEvent PING = create("event.ping");
-    SoundEvent SONAR_PING = create("event.sonar_ping");
+    SoundEventRegistrant SOUND_EVENTS = new SoundEventRegistrant(Redemption.MOD_ID);
 
-    private static SoundEvent create(String name) {
-        Identifier id = Redemption.id(name);
-        return Registry.register(Registries.SOUND_EVENT, id, SoundEvent.of(id));
-    }
+    SoundEvent HUNTER_BLACKOUT = SOUND_EVENTS.register("item.hunter.blackout");
+    SoundEvent UNSHEATHE = SOUND_EVENTS.register("item.unsheathe");
+    SoundEvent BECOME_JUDGE = SOUND_EVENTS.register("event.become_judge");
+    SoundEvent JUDGE_DEATH = SOUND_EVENTS.register("event.judge_death");
+    SoundEvent PING = SOUND_EVENTS.register("event.ping");
+    SoundEvent SONAR_PING = SOUND_EVENTS.register("event.sonar_ping");
 
     static void index() {}
 }

@@ -39,7 +39,7 @@ repositories {
 
 fabricApi {
 	configureDataGeneration {
-		// modId = "redemption"
+		 modId = "redemption"
 		client = true
 	}
 }

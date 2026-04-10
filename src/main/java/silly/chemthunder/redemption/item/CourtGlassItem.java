@@ -21,8 +21,8 @@ import net.minecraft.util.Hand;
 import net.minecraft.util.TypedActionResult;
 import net.minecraft.util.math.Box;
 import net.minecraft.world.World;
-import silly.chemthunder.redemption.cca.JudgementFlashComponent;
-import silly.chemthunder.redemption.cca.JudgementPlayerComponent;
+import silly.chemthunder.redemption.cca.entity.JudgementComponent;
+import silly.chemthunder.redemption.cca.entity.flash.JudgementFlashComponent;
 import silly.chemthunder.redemption.index.RedemptionItems;
 import silly.chemthunder.redemption.index.RedemptionSoundEvents;
 
@@ -51,13 +51,10 @@ public class CourtGlassItem extends Item implements ColorableItem {
 
     public void appendTooltip(ItemStack stack, TooltipContext context, List<Text> tooltip, TooltipType type) {
         int color = 0x26bdbd;
-        tooltip.add(Text.translatable("lore.court_glass_1").withColor(color));
-        tooltip.add(Text.translatable("lore.court_glass_2").withColor(color));
-        tooltip.add(Text.translatable("lore.court_glass_3").withColor(color));
 
-        // for (int i = 0; i < 3; i++) {
-        //     tooltip.add(Text.translatable("lore.court_glass_" + (i + 1)).withColor(color));
-        // }
+        for (int i = 0; i < 3; i++) {
+            tooltip.add(Text.translatable("lore.court_glass." + i).withColor(color));
+        }
         super.appendTooltip(stack, context, tooltip, type);
     }
 
@@ -76,7 +73,7 @@ public class CourtGlassItem extends Item implements ColorableItem {
         double x = player.getX();
         double y = player.getY();
         double z = player.getZ();
-        JudgementPlayerComponent judge = JudgementPlayerComponent.KEY.get(player);
+        JudgementComponent judge = JudgementComponent.KEY.get(player);
 
         judge.isJudgement = true;
         judge.sync();

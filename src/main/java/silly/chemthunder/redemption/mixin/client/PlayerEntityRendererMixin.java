@@ -14,10 +14,10 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
-import silly.chemthunder.redemption.cca.EnshroudedPlayerComponent;
-import silly.chemthunder.redemption.cca.JudgementPlayerComponent;
-import silly.chemthunder.redemption.item.KatanaItem;
-import silly.chemthunder.redemption.item.SheathItem;
+import silly.chemthunder.redemption.cca.entity.EnshroudedComponent;
+import silly.chemthunder.redemption.cca.entity.JudgementComponent;
+import silly.chemthunder.redemption.item.katana.KatanaItem;
+import silly.chemthunder.redemption.item.katana.SheathItem;
 
 @Mixin(PlayerEntityRenderer.class)
 public abstract class PlayerEntityRendererMixin extends LivingEntityRenderer<AbstractClientPlayerEntity, PlayerEntityModel<AbstractClientPlayerEntity>> {
@@ -30,14 +30,14 @@ public abstract class PlayerEntityRendererMixin extends LivingEntityRenderer<Abs
         if (player.getStackInHand(hand).getItem() instanceof SheathItem) {
             if (player.isUsingItem()) cir.setReturnValue(BipedEntityModel.ArmPose.BLOCK);
         }
-        if (player.getStackInHand(hand).getItem() instanceof KatanaItem && player.isUsingItem() && JudgementPlayerComponent.KEY.get(player).isJudgement) {
+        if (player.getStackInHand(hand).getItem() instanceof KatanaItem && player.isUsingItem() && JudgementComponent.KEY.get(player).isJudgement) {
             cir.setReturnValue(BipedEntityModel.ArmPose.CROSSBOW_HOLD);
         }
     }
 
     @Inject(method = "render(Lnet/minecraft/client/network/AbstractClientPlayerEntity;FFLnet/minecraft/client/util/math/MatrixStack;Lnet/minecraft/client/render/VertexConsumerProvider;I)V", at = @At("HEAD"), cancellable = true)
     private void cancelRendering(AbstractClientPlayerEntity abstractClientPlayerEntity, float f, float g, MatrixStack matrixStack, VertexConsumerProvider vertexConsumerProvider, int i, CallbackInfo ci) {
-        if (EnshroudedPlayerComponent.KEY.get(abstractClientPlayerEntity).isShrouded) {
+        if (EnshroudedComponent.KEY.get(abstractClientPlayerEntity).isShrouded) {
             ci.cancel();
         }
     }

@@ -3,6 +3,7 @@ package silly.chemthunder.redemption.index;
 import net.fabricmc.fabric.api.itemgroup.v1.FabricItemGroup;
 import net.fabricmc.fabric.api.itemgroup.v1.FabricItemGroupEntries;
 import net.fabricmc.fabric.api.itemgroup.v1.ItemGroupEvents;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemGroup;
 import net.minecraft.item.ItemStack;
 import net.minecraft.registry.Registries;
@@ -25,36 +26,8 @@ public interface RedemptionItemGroups {
     }
 
     private static void addEntries(FabricItemGroupEntries itemGroup) {
-        // for (Item item : RedemptionItems.ITEMS.keySet()) {
-        //     itemGroup.add(item);
-        // }
-
-        itemGroup.add(RedemptionItems.REDSTONE_KATANA);
-        itemGroup.add(RedemptionItems.REDSTONE_SHEATH);
-        itemGroup.add(RedemptionItems.REDSTONE_SHEATHED);
-        itemGroup.add(RedemptionItems.QUARTZ_KATANA);
-        itemGroup.add(RedemptionItems.QUARTZ_SHEATH);
-        itemGroup.add(RedemptionItems.QUARTZ_SHEATHED);
-        itemGroup.add(RedemptionItems.EMERALD_KATANA);
-        itemGroup.add(RedemptionItems.EMERALD_SHEATH);
-        itemGroup.add(RedemptionItems.EMERALD_SHEATHED);
-        itemGroup.add(RedemptionItems.AMETHYST_KATANA);
-        itemGroup.add(RedemptionItems.AMETHYST_SHEATH);
-        itemGroup.add(RedemptionItems.AMETHYST_SHEATHED);
-        itemGroup.add(RedemptionItems.NETHERITE_KATANA);
-        itemGroup.add(RedemptionItems.NETHERITE_SHEATH);
-        itemGroup.add(RedemptionItems.NETHERITE_SHEATHED);
-        itemGroup.add(RedemptionItems.COPPER_KATANA);
-        itemGroup.add(RedemptionItems.COPPER_SHEATH);
-        itemGroup.add(RedemptionItems.COPPER_SHEATHED);
-        itemGroup.add(RedemptionItems.SCULK_KATANA);
-        itemGroup.add(RedemptionItems.SCULK_SHEATH);
-        itemGroup.add(RedemptionItems.SCULK_SHEATHED);
-        itemGroup.add(RedemptionItems.LAPIS_KATANA);
-        itemGroup.add(RedemptionItems.LAPIS_SHEATH);
-        itemGroup.add(RedemptionItems.LAPIS_SHEATHED);
-
-        itemGroup.add(RedemptionItems.COURT_GLASS);
-        itemGroup.add(RedemptionItems.HUNTERS_GLASS);
+        for (Item item : RedemptionItems.ITEMS.toRegister) {
+            itemGroup.add(item);
+        }
     }
 }

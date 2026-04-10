@@ -15,7 +15,7 @@ import net.minecraft.util.Hand;
 import net.minecraft.util.TypedActionResult;
 import net.minecraft.util.math.Box;
 import net.minecraft.world.World;
-import silly.chemthunder.redemption.cca.EnshroudedPlayerComponent;
+import silly.chemthunder.redemption.cca.entity.EnshroudedComponent;
 import silly.chemthunder.redemption.index.RedemptionParticles;
 import silly.chemthunder.redemption.index.RedemptionSoundEvents;
 
@@ -42,7 +42,7 @@ public class HuntersCourtGlassItem extends Item implements ColorableItem {
         double x = user.getX();
         double y = user.getY();
         double z = user.getZ();
-        EnshroudedPlayerComponent shroud = EnshroudedPlayerComponent.KEY.get(user);
+        EnshroudedComponent shroud = EnshroudedComponent.KEY.get(user);
 
         if (user.getOffHandStack().isOf(this)) {
             if (!shroud.isShrouded) {
@@ -80,14 +80,9 @@ public class HuntersCourtGlassItem extends Item implements ColorableItem {
     public void appendTooltip(ItemStack stack, TooltipContext context, List<Text> tooltip, TooltipType type) {
         int color = 0xb629eb;
 
-        tooltip.add(Text.translatable("lore.hunters_glass_1").withColor(color));
-        tooltip.add(Text.translatable("lore.hunters_glass_2").withColor(color));
-        tooltip.add(Text.translatable("lore.hunters_glass_3").withColor(color));
-
-        // for (int i = 0; i < 3; i++) {
-        //     tooltip.add(Text.translatable("lore.hunters_glass_" + (i + 1)).withColor(color));
-        // }
-
+        for (int i = 0; i < 3; i++) {
+            tooltip.add(Text.translatable("lore.hunters_glass." + i).withColor(color));
+        }
         super.appendTooltip(stack, context, tooltip, type);
     }
 }

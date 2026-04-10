@@ -1,27 +1,14 @@
 package silly.chemthunder.redemption.index;
 
-import com.mojang.serialization.Codec;
+import net.acoyt.acornlib.api.registrants.ComponentTypeRegistrant;
 import net.minecraft.component.ComponentType;
-import net.minecraft.registry.Registries;
-import net.minecraft.registry.Registry;
-import net.minecraft.util.Identifier;
-import net.minecraft.util.math.BlockPos;
 import silly.chemthunder.redemption.Redemption;
-
-import java.util.LinkedHashMap;
-import java.util.Map;
+import silly.chemthunder.redemption.component.AshiroKatanaComponent;
 
 public interface RedemptionDataComponents {
-    Map<ComponentType<?>, Identifier> COMPONENTS = new LinkedHashMap<>();
+    ComponentTypeRegistrant DATA_COMPONENTS = new ComponentTypeRegistrant(Redemption.MOD_ID);
 
-    static <T extends ComponentType<?>> T create(String name, T component) {
-        COMPONENTS.put(component, Redemption.id(name));
-        return component;
-    }
+    ComponentType<AshiroKatanaComponent> ASHIRO_KATANA = DATA_COMPONENTS.register("ashiro_katana", builder -> builder.codec(AshiroKatanaComponent.CODEC));
 
-    static void index() {
-        COMPONENTS.keySet().forEach(component -> {
-            Registry.register(Registries.DATA_COMPONENT_TYPE, COMPONENTS.get(component), component);
-        });
-    }
+    static void index() {}
 }

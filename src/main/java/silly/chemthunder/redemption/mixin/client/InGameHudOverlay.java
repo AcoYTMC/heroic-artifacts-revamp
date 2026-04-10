@@ -15,9 +15,9 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import silly.chemthunder.redemption.Redemption;
-import silly.chemthunder.redemption.cca.FlashComponent;
-import silly.chemthunder.redemption.cca.JudgementFlashComponent;
-import silly.chemthunder.redemption.cca.JudgementPlayerComponent;
+import silly.chemthunder.redemption.cca.entity.JudgementComponent;
+import silly.chemthunder.redemption.cca.entity.flash.FlashComponent;
+import silly.chemthunder.redemption.cca.entity.flash.JudgementFlashComponent;
 
 @Mixin(InGameHud.class)
 public abstract class InGameHudOverlay {
@@ -55,7 +55,7 @@ public abstract class InGameHudOverlay {
     )
     private void textureHotbar(DrawContext instance, Identifier texture, int x, int y, int width, int height, Operation<Void> original) {
         if (MinecraftClient.getInstance().player != null) {
-            original.call(instance, JudgementPlayerComponent.KEY.get(MinecraftClient.getInstance().player).isJudgement ? CUSTOM_HOTBAR : texture, x, y, width, height);
+            original.call(instance, JudgementComponent.KEY.get(MinecraftClient.getInstance().player).isJudgement ? CUSTOM_HOTBAR : texture, x, y, width, height);
         }
     }
 
@@ -69,7 +69,7 @@ public abstract class InGameHudOverlay {
     )
     private void textureSelector(DrawContext instance, Identifier texture, int x, int y, int width, int height, Operation<Void> original) {
         if (MinecraftClient.getInstance().player != null) {
-            original.call(instance, JudgementPlayerComponent.KEY.get(MinecraftClient.getInstance().player).isJudgement ? CUSTOM_HOTBAR_SELECTOR : texture, x, y, width, height);
+            original.call(instance, JudgementComponent.KEY.get(MinecraftClient.getInstance().player).isJudgement ? CUSTOM_HOTBAR_SELECTOR : texture, x, y, width, height);
         }
     }
 }
