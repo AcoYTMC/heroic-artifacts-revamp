@@ -14,10 +14,10 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
-import silly.chemthunder.redemption.cca.entity.EnshroudedComponent;
-import silly.chemthunder.redemption.cca.entity.JudgementComponent;
-import silly.chemthunder.redemption.item.katana.KatanaItem;
-import silly.chemthunder.redemption.item.katana.SheathItem;
+import silly.chemthunder.redemption.impl.cca.entity.EnshroudedComponent;
+import silly.chemthunder.redemption.impl.cca.entity.JudgementComponent;
+import silly.chemthunder.redemption.impl.item.katana.KatanaItem;
+import silly.chemthunder.redemption.impl.item.katana.SheathItem;
 
 @Mixin(PlayerEntityRenderer.class)
 public abstract class PlayerEntityRendererMixin extends LivingEntityRenderer<AbstractClientPlayerEntity, PlayerEntityModel<AbstractClientPlayerEntity>> {

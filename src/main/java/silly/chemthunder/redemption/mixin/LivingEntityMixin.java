@@ -14,8 +14,8 @@ import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
-import silly.chemthunder.redemption.cca.entity.JudgementComponent;
-import silly.chemthunder.redemption.index.data.RedemptionDamageSources;
+import silly.chemthunder.redemption.impl.cca.entity.JudgementComponent;
+import silly.chemthunder.redemption.impl.index.data.RedemptionDamageSources;
 
 @Mixin(LivingEntity.class)
 public abstract class LivingEntityMixin extends Entity implements Attackable {

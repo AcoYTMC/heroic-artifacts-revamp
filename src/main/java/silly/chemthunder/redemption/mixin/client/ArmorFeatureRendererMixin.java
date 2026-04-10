@@ -13,8 +13,8 @@ import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
-import silly.chemthunder.redemption.cca.entity.EnshroudedComponent;
-import silly.chemthunder.redemption.cca.entity.JudgementComponent;
+import silly.chemthunder.redemption.impl.cca.entity.EnshroudedComponent;
+import silly.chemthunder.redemption.impl.cca.entity.JudgementComponent;
 
 @Mixin(ArmorFeatureRenderer.class)
 public abstract class ArmorFeatureRendererMixin<T extends LivingEntity, M extends BipedEntityModel<T>, A extends BipedEntityModel<T>> extends FeatureRenderer<T, M> {

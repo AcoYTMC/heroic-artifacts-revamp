@@ -18,16 +18,16 @@
   "environment": "*",
   "entrypoints": {
     "main": [
-      "silly.chemthunder.redemption.Redemption"
+      "silly.chemthunder.redemption.impl.Redemption"
     ],
     "client": [
-      "silly.chemthunder.redemption.RedemptionClient"
+      "silly.chemthunder.redemption.impl.RedemptionClient"
     ],
     "fabric-datagen": [
-      "silly.chemthunder.redemption.RedemptionDataGen"
+      "silly.chemthunder.redemption.data.RedemptionDataGen"
     ],
     "cardinal-components": [
-      "silly.chemthunder.redemption.cca.RedemptionComponents"
+      "silly.chemthunder.redemption.impl.cca.RedemptionComponents"
     ]
   },
   "mixins": [

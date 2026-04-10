@@ -14,10 +14,10 @@ import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
-import silly.chemthunder.redemption.Redemption;
-import silly.chemthunder.redemption.cca.entity.JudgementComponent;
-import silly.chemthunder.redemption.cca.entity.flash.FlashComponent;
-import silly.chemthunder.redemption.cca.entity.flash.JudgementFlashComponent;
+import silly.chemthunder.redemption.impl.Redemption;
+import silly.chemthunder.redemption.impl.cca.entity.JudgementComponent;
+import silly.chemthunder.redemption.impl.cca.entity.flash.FlashComponent;
+import silly.chemthunder.redemption.impl.cca.entity.flash.JudgementFlashComponent;
 
 @Mixin(InGameHud.class)
 public abstract class InGameHudOverlay {
