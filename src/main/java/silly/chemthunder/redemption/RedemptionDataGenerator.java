@@ -8,3 +8,8 @@ public class RedemptionDataGenerator implements DataGeneratorEntrypoint {
 		//FabricDataGenerator.Pack pack = fabricDataGenerator.createPack();
 	}
 }
+
+/*
+Use datagen for lang, tags, and models since they all share the same? model
+
+*/

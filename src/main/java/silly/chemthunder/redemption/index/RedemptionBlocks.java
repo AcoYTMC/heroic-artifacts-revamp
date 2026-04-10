@@ -11,18 +11,11 @@ import net.minecraft.registry.Registries;
 import net.minecraft.registry.Registry;
 import net.minecraft.sound.BlockSoundGroup;
 import silly.chemthunder.redemption.Redemption;
-import silly.chemthunder.redemption.block.FinalAceBlock;
 
 import java.util.function.Function;
 
 public interface RedemptionBlocks {
     // BlockRegistrant BLOCKS = new BlockRegistrant(Redemption.MOD_ID);
-
-    // Block FINAL_ACE = createWithItem("final_ace", FinalAceBlock::new, AbstractBlock.Settings.copy(Blocks.BEDROCK)
-    //         .sounds(BlockSoundGroup.BONE)
-    //         .dropsNothing()
-    //         .nonOpaque()
-    // );
 
     static Block create(String name, Function<AbstractBlock.Settings, Block> factory, AbstractBlock.Settings settings) {
         Block block = factory.apply(settings);
@@ -37,7 +30,5 @@ public interface RedemptionBlocks {
 
     static void index() {}
 
-    static void clientIndex() {
-        //BlockRenderLayerMap.INSTANCE.putBlocks(RenderLayer.getCutout(), FINAL_ACE);
-    }
+    static void clientIndex() {}
 }

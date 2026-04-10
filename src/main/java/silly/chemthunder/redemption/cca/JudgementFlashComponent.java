@@ -11,6 +11,7 @@ import silly.chemthunder.redemption.Redemption;
 
 public class JudgementFlashComponent implements AutoSyncedComponent, CommonTickingComponent {
     public static final ComponentKey<JudgementFlashComponent> KEY = ComponentRegistry.getOrCreate(Redemption.id("judge_flash"), JudgementFlashComponent.class);
+
     private final LivingEntity player;
     public int flashTicks = 0;
 
@@ -22,17 +23,14 @@ public class JudgementFlashComponent implements AutoSyncedComponent, CommonTicki
         KEY.sync(this.player);
     }
 
-    @Override
     public void readFromNbt(NbtCompound nbtCompound, RegistryWrapper.WrapperLookup wrapperLookup) {
-        this.flashTicks = nbtCompound.getInt("flashTicks");
+        this.flashTicks = nbtCompound.getInt("FlashTicks");
     }
 
-    @Override
     public void writeToNbt(NbtCompound nbtCompound, RegistryWrapper.WrapperLookup wrapperLookup) {
-        nbtCompound.putInt("flashTicks", flashTicks);
+        nbtCompound.putInt("FlashTicks", flashTicks);
     }
 
-    @Override
     public void tick() {
         if (flashTicks > 0) {
             flashTicks--;

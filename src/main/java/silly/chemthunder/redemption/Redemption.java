@@ -24,7 +24,6 @@ public class Redemption implements ModInitializer {
         RedemptionBlockEntities.index();
         RedemptionEntities.index();
 
-
 		LOGGER.info("Redemption is running!");
 
         // alib

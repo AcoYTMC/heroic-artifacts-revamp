@@ -10,6 +10,7 @@ import silly.chemthunder.redemption.Redemption;
 
 public class EnshroudedPlayerComponent implements AutoSyncedComponent {
     public static final ComponentKey<EnshroudedPlayerComponent> KEY = ComponentRegistry.getOrCreate(Redemption.id("shrouded"), EnshroudedPlayerComponent.class);
+
     private final PlayerEntity player;
     public boolean isShrouded = false;
 
@@ -21,13 +22,11 @@ public class EnshroudedPlayerComponent implements AutoSyncedComponent {
         KEY.sync(this.player);
     }
 
-    @Override
     public void readFromNbt(NbtCompound nbtCompound, RegistryWrapper.WrapperLookup wrapperLookup) {
-        this.isShrouded = nbtCompound.getBoolean("isShrouded");
+        this.isShrouded = nbtCompound.getBoolean("IsShrouded");
     }
 
-    @Override
     public void writeToNbt(NbtCompound nbtCompound, RegistryWrapper.WrapperLookup wrapperLookup) {
-        nbtCompound.putBoolean("isShrouded", isShrouded);
+        nbtCompound.putBoolean("IsShrouded", isShrouded);
     }
 }

@@ -39,6 +39,7 @@ repositories {
 
 fabricApi {
 	configureDataGeneration {
+		// modId = "redemption"
 		client = true
 	}
 }
@@ -52,26 +53,20 @@ dependencies {
 	// Fabric API. This is technically optional, but you probably want it anyway.
 	modImplementation "net.fabricmc.fabric-api:fabric-api:${project.fabric_version}"
 
-	// MixinSquared
-	include(implementation(annotationProcessor("com.github.bawnorton.mixinsquared:mixinsquared-fabric:${project.mixinsquared_version}")))
-
 	// Libraries
 	modImplementation "maven.modrinth:acornlib:${project.acornlib_version}"
+	modCompileOnly "maven.modrinth:iris:${project.iris_version}"
+	modImplementation("maven.modrinth:nitrogen_rbn:${project.nitrogen_version}")
 
-	// Trinkets
+	// Requirements
 	modImplementation "dev.emi:trinkets:${project.trinkets_version}"
-
-	// Config
 	modApi ("com.terraformersmc:modmenu:${project.modmenu_version}")
 	modImplementation ("maven.modrinth:midnightlib:${project.midnightlib_version}")
+	include(implementation(annotationProcessor("com.github.bawnorton.mixinsquared:mixinsquared-fabric:${project.mixinsquared_version}")))
 
 	// CCA
 	modImplementation include("org.ladysnake.cardinal-components-api:cardinal-components-base:${project.cca_version}")
 	modImplementation include("org.ladysnake.cardinal-components-api:cardinal-components-entity:${project.cca_version}")
-	modCompileOnly "maven.modrinth:iris:${project.iris_version}"
-
-	// Nitrogen
-	modImplementation("maven.modrinth:nitrogen_rbn:${project.nitrogen_version}")
 }
 
 processResources {

@@ -25,7 +25,6 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 import silly.chemthunder.redemption.cca.FlashComponent;
 import silly.chemthunder.redemption.cca.JudgementPlayerComponent;
-import silly.chemthunder.redemption.entity.BindingHexEntity;
 import silly.chemthunder.redemption.index.RedemptionDamageSources;
 import silly.chemthunder.redemption.index.RedemptionEntities;
 
@@ -35,13 +34,13 @@ public abstract class LivingEntityMixin extends Entity implements Attackable {
         super(type, world);
     }
 
-    @Unique @Final
-    LivingEntity living = (LivingEntity) (Object) this;
-
     @Inject(method = "tryUseTotem", at = @At("HEAD"), cancellable = true)
     private void deathEffect(DamageSource deathSource, CallbackInfoReturnable<Boolean> cir) {
+        LivingEntity living = (LivingEntity) (Object) this;
+
         if (living instanceof PlayerEntity player) {
             JudgementPlayerComponent judge = JudgementPlayerComponent.KEY.get(player);
+
             if (judge.isJudgement) {
                 if (!deathSource.isOf(RedemptionDamageSources.DESCEND)) {
                     player.setHealth(player.getMaxHealth());
@@ -57,52 +56,12 @@ public abstract class LivingEntityMixin extends Entity implements Attackable {
                 }
             }
         }
-
-//        if (deathSource.isOf(RedemptionDamageSources.ENKEY)) {
-//            if (!living.hasVehicle() && living.getVehicle() instanceof BindingHexEntity) {
-//                living.setHealth(living.getMaxHealth());
-//                BindingHexEntity hex = new BindingHexEntity(RedemptionEntities.BINDING_HEX, getWorld());
-//
-//                hex.updatePosition(living.getX(), living.getY(), living.getZ());
-//                living.startRiding(hex);
-//
-//                if (getWorld() instanceof ServerWorld serverWorld) {
-//                    serverWorld.spawnEntity(hex);
-//
-//                    for (ServerPlayerEntity serverPlayer : serverWorld.getPlayers()) {
-//                        FlashComponent flash = FlashComponent.KEY.get(serverPlayer);
-//                        flash.flashTicks = 20;
-//                        flash.sync();
-//
-//                        if (serverPlayer instanceof ScreenShaker screenShaker) {
-//                            screenShaker.addScreenShake(2, 1);
-//                        }
-//                    }
-//                }
-//
-//                cir.setReturnValue(true);
-//            } else {
-//                if (getWorld() instanceof ServerWorld serverWorld) {
-//                    serverWorld.spawnParticles(ParticleTypes.END_ROD, living.getX(), living.getY(), living.getZ(), 50, 0, 0, 0, 0.3);
-//                    for (ServerPlayerEntity serverPlayer : serverWorld.getPlayers()) {
-//                        FlashComponent flash = FlashComponent.KEY.get(serverPlayer);
-//                        flash.flashTicks = 20;
-//                        flash.sync();
-//
-//                        if (serverPlayer instanceof ScreenShaker screenShaker) {
-//                            screenShaker.addScreenShake(1, 5);
-//                        }
-//
-//                        serverPlayer.sendMessage(Text.literal(living.getNameForScoreboard() + " left the game").formatted(Formatting.YELLOW));
-//                    }
-//                }
-//                cir.setReturnValue(false);
-//            }
-//        }
     }
 
     @ModifyReturnValue(method = "getMaxHealth", at = @At("RETURN"))
     private float judge$maxHealth(float original) {
+        LivingEntity living = (LivingEntity) (Object) this;
+
         if (living instanceof PlayerEntity player && JudgementPlayerComponent.KEY.get(player).isJudgement) {
             return 40.0f;
         }
@@ -111,19 +70,12 @@ public abstract class LivingEntityMixin extends Entity implements Attackable {
 
     @WrapMethod(method = "heal")
     private void judge$boostedHeal(float amount, Operation<Void> original) {
-        if (living instanceof PlayerEntity player && JudgementPlayerComponent.KEY.get(player).isJudgement) {
-            original.call(amount * 2);
+        LivingEntity living = (LivingEntity) (Object) this;
+
+        if (living instanceof PlayerEntity player) {
+            original.call(JudgementPlayerComponent.KEY.get(player).isJudgement ? amount * 2 : amount);
         } else {
             original.call(amount);
-        }
-    }
-
-    @Inject(method = "onDeath", at = @At("HEAD"))
-    private void killOther(DamageSource damageSource, CallbackInfo ci) {
-        LivingEntity livingEntity = (LivingEntity) (Object) this;
-
-        if (livingEntity.hasVehicle() && livingEntity.getVehicle() instanceof BindingHexEntity hex) {
-            hex.kill();
         }
     }
 }

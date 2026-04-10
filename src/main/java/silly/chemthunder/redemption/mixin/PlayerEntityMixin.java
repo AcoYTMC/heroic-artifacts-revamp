@@ -19,7 +19,6 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 import silly.chemthunder.redemption.cca.EnshroudedPlayerComponent;
 import silly.chemthunder.redemption.cca.JudgementPlayerComponent;
-import silly.chemthunder.redemption.entity.BindingHexEntity;
 import silly.chemthunder.redemption.index.RedemptionParticles;
 import silly.chemthunder.redemption.index.RedemptionTags;
 
@@ -29,20 +28,10 @@ public abstract class PlayerEntityMixin extends LivingEntity {
         super(entityType, world);
     }
 
-
-
-    @Unique @Final
-    PlayerEntity player = (PlayerEntity) (Object) this;
-
-    @Unique
-    double x = player.getX();
-    @Unique
-    double y = player.getY();
-    @Unique
-    double z = player.getZ();
-
     @Inject(method = "playStepSound", at = @At("RETURN"), cancellable = true)
     private void cancelStepSounds(BlockPos pos, BlockState state, CallbackInfo ci) {
+        PlayerEntity player = (PlayerEntity) (Object) this;
+
         if (EnshroudedPlayerComponent.KEY.get(player).isShrouded) {
             ci.cancel();
         }
@@ -50,19 +39,21 @@ public abstract class PlayerEntityMixin extends LivingEntity {
 
     @Inject(method = "attack", at = @At("TAIL"))
     private void disableShroudUponAttack(Entity target, CallbackInfo ci) {
+        PlayerEntity player = (PlayerEntity) (Object) this;
         disableCloak(player);
     }
 
     @Inject(method = "damage", at = @At("TAIL"))
     private void disableShroudUponDamage(DamageSource source, float amount, CallbackInfoReturnable<Boolean> cir) {
+        PlayerEntity player = (PlayerEntity) (Object) this;
         disableCloak(player);
     }
 
-    @Unique
-    public void disableCloak(PlayerEntity player) {
-        if (EnshroudedPlayerComponent.KEY.get(player).isShrouded) {
-            EnshroudedPlayerComponent.KEY.get(player).isShrouded = false;
-            EnshroudedPlayerComponent.KEY.get(player).sync();
+    @Unique public void disableCloak(PlayerEntity player) {
+        EnshroudedPlayerComponent comp = EnshroudedPlayerComponent.KEY.get(player);
+        if (comp.isShrouded) {
+            comp.isShrouded = false;
+            comp.sync();
             player.setInvisible(false);
             if (getWorld() instanceof ServerWorld serverWorld) {
                 serverWorld.spawnParticles(RedemptionParticles.HUNTER_OMEN, x, y + 0.5f, z, 15, 0, 0, 0, 0.03f);
@@ -73,13 +64,9 @@ public abstract class PlayerEntityMixin extends LivingEntity {
 
     @Inject(method = "tick", at = @At("HEAD"))
     private void playerTicker(CallbackInfo ci) {
+        PlayerEntity player = (PlayerEntity) (Object) this;
         if (player.getStackInHand(player.getActiveHand()).isIn(RedemptionTags.KATANAS) && player.isUsingItem() && JudgementPlayerComponent.KEY.get(player).isJudgement) {
             getWorld().addParticle(ParticleTypes.SCULK_SOUL, true, player.getX(), player.getY(), player.getZ(), 0, 0, 0);
         }
-    }
-
-    @Inject(method = "shouldDismount", at = @At("HEAD"), cancellable = true)
-    private void noDismount(CallbackInfoReturnable<Boolean> cir) {
-        if (this.getVehicle() instanceof BindingHexEntity) cir.setReturnValue(false);
     }
 }

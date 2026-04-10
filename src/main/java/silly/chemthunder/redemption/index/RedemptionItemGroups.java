@@ -16,13 +16,12 @@ public interface RedemptionItemGroups {
     RegistryKey<ItemGroup> GROUP_KEY = RegistryKey.of(RegistryKeys.ITEM_GROUP, Redemption.id("redemption"));
     ItemGroup A_GROUP = FabricItemGroup.builder()
             .icon(() -> new ItemStack(RedemptionItems.COURT_GLASS))
-            .displayName(Text.translatable("itemgroup.redemption"))
+            .displayName(Text.translatable("itemGroup.redemption"))
             .build();
 
     static void index() {
         Registry.register(Registries.ITEM_GROUP, GROUP_KEY, A_GROUP);
         ItemGroupEvents.modifyEntriesEvent(GROUP_KEY).register(RedemptionItemGroups::addEntries);
-
     }
 
     private static void addEntries(FabricItemGroupEntries itemGroup) {

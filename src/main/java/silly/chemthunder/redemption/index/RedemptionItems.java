@@ -8,7 +8,6 @@ import net.minecraft.registry.Registry;
 import net.minecraft.sound.SoundEvents;
 import net.minecraft.util.Identifier;
 import silly.chemthunder.redemption.Redemption;
-import silly.chemthunder.redemption.block.FinalAceBlockItem;
 import silly.chemthunder.redemption.item.*;
 
 import java.util.LinkedHashMap;
@@ -163,8 +162,6 @@ public interface RedemptionItems {
             .maxCount(1)
             .attributeModifiers(SheathedKatanaItem.createAttributeModifiers())
     ));
-
-
 
     Item COURT_GLASS = create("court_glass", new CourtGlassItem(new AcornItemSettings()
             .maxCount(1)

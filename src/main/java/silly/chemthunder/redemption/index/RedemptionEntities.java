@@ -11,9 +11,6 @@ import net.minecraft.registry.Registry;
 import net.minecraft.registry.RegistryKey;
 import net.minecraft.registry.RegistryKeys;
 import silly.chemthunder.redemption.Redemption;
-import silly.chemthunder.redemption.client.entity.BindingHexEntityModel;
-import silly.chemthunder.redemption.client.entity.BindingHexRenderer;
-import silly.chemthunder.redemption.entity.BindingHexEntity;
 
 public interface RedemptionEntities {
 //    EntityType<BindingHexEntity> BINDING_HEX = create(

@@ -3,7 +3,6 @@ package silly.chemthunder.redemption;
 import net.acoyt.acornlib.api.event.CustomRiptideEvent;
 import net.fabricmc.api.ClientModInitializer;
 import net.minecraft.client.render.block.entity.BlockEntityRendererFactories;
-import silly.chemthunder.redemption.block.entity.render.FinalAceBlockEntityRenderer;
 import silly.chemthunder.redemption.event.JudgementRiptideEvent;
 import silly.chemthunder.redemption.index.*;
 
@@ -14,6 +13,5 @@ public class RedemptionClient implements ClientModInitializer {
         RedemptionEntities.clientIndex();
 
         CustomRiptideEvent.EVENT.register(new JudgementRiptideEvent());
-        BlockEntityRendererFactories.register(RedemptionBlockEntities.FINAL_ACE, context -> new FinalAceBlockEntityRenderer());
     }
 }

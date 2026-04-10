@@ -7,7 +7,6 @@ import net.minecraft.registry.Registries;
 import net.minecraft.registry.Registry;
 import net.minecraft.util.Identifier;
 import silly.chemthunder.redemption.Redemption;
-import silly.chemthunder.redemption.block.entity.FinalAceBlockEntity;
 
 import java.util.LinkedHashMap;
 import java.util.Map;
@@ -16,10 +15,6 @@ import java.util.Map;
 public interface RedemptionBlockEntities {
     Map<BlockEntityType<?>, Identifier> BLOCK_ENTITIES = new LinkedHashMap<>();
 
-    // BlockEntityType<FinalAceBlockEntity> FINAL_ACE = create("final_ace", FabricBlockEntityTypeBuilder
-    //         .create(FinalAceBlockEntity::new)
-    //         .addBlocks(RedemptionBlocks.FINAL_ACE)
-    //         .build());
 
     private static <T extends BlockEntity> BlockEntityType<T> create(String name, BlockEntityType<T> blockEntity) {
         BLOCK_ENTITIES.put(blockEntity, Redemption.id(name));

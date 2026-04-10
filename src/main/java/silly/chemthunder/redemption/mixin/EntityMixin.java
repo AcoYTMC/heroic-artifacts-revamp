@@ -10,7 +10,6 @@ import silly.chemthunder.redemption.cca.EnshroudedPlayerComponent;
 
 @Mixin(Entity.class)
 public abstract class EntityMixin {
-
     @Inject(method = "spawnSprintingParticles", at = @At("HEAD"), cancellable = true)
     private void disableSprintingParticles(CallbackInfo ci) {
         Entity entity = (Entity) (Object) this;

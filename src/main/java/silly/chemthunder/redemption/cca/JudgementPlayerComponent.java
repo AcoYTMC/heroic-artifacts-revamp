@@ -24,6 +24,7 @@ import java.util.List;
 
 public class JudgementPlayerComponent implements AutoSyncedComponent, CommonTickingComponent {
     public static final ComponentKey<JudgementPlayerComponent> KEY = ComponentRegistry.getOrCreate(Redemption.id("judgement"), JudgementPlayerComponent.class);
+    
     private final PlayerEntity player;
     public boolean isJudgement = false;
     public int monologueTicks = 0;
@@ -36,19 +37,16 @@ public class JudgementPlayerComponent implements AutoSyncedComponent, CommonTick
         KEY.sync(this.player);
     }
 
-    @Override
     public void readFromNbt(NbtCompound nbtCompound, RegistryWrapper.WrapperLookup wrapperLookup) {
-        this.isJudgement = nbtCompound.getBoolean("isJudgement");
-        this.monologueTicks = nbtCompound.getInt("monologueTicks");
+        this.isJudgement = nbtCompound.getBoolean("IsJudgement");
+        this.monologueTicks = nbtCompound.getInt("MonologueTicks");
     }
 
-    @Override
     public void writeToNbt(NbtCompound nbtCompound, RegistryWrapper.WrapperLookup wrapperLookup) {
-        nbtCompound.putBoolean("isJudgement", isJudgement);
-        nbtCompound.putInt("monologueTicks", monologueTicks);
+        nbtCompound.putBoolean("IsJudgement", isJudgement);
+        nbtCompound.putInt("MonologueTicks", monologueTicks);
     }
 
-    @Override
     public void tick() {
         if (monologueTicks > 0) {
             monologueTicks--;
