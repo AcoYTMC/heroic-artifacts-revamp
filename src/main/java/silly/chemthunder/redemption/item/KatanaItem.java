@@ -109,6 +109,7 @@ public class KatanaItem extends Item implements ColorableItem, CustomKillSourceI
             if (user instanceof PlayerEntity player) {
                 player.setVelocity(user.getRotationVec(0).multiply(3));
                 player.useRiptide(10, 7f, user.getStackInHand(user.getActiveHand()));
+                player.getItemCooldownManager().set(this, 400);
             }
         }
         return super.use(world, user, hand);
