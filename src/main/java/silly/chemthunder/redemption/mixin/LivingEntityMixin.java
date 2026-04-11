@@ -15,7 +15,7 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 import silly.chemthunder.redemption.impl.cca.entity.JudgementComponent;
-import silly.chemthunder.redemption.impl.index.data.RedemptionDamageSources;
+import silly.chemthunder.redemption.impl.index.data.RedemptionDamageTypes;
 
 @Mixin(LivingEntity.class)
 public abstract class LivingEntityMixin extends Entity implements Attackable {
@@ -24,14 +24,14 @@ public abstract class LivingEntityMixin extends Entity implements Attackable {
     }
 
     @Inject(method = "tryUseTotem", at = @At("HEAD"), cancellable = true)
-    private void deathEffect(DamageSource deathSource, CallbackInfoReturnable<Boolean> cir) {
+    private void redemption$deathEffect(DamageSource deathSource, CallbackInfoReturnable<Boolean> cir) {
         LivingEntity living = (LivingEntity) (Object) this;
 
         if (living instanceof PlayerEntity player) {
             JudgementComponent judge = JudgementComponent.KEY.get(player);
 
             if (judge.isJudgement) {
-                if (!deathSource.isOf(RedemptionDamageSources.DESCEND)) {
+                if (!deathSource.isOf(RedemptionDamageTypes.DESCEND)) {
                     player.setHealth(player.getMaxHealth());
                     player.setVelocity(0, 0.3, 0);
                     player.velocityModified = true;
@@ -48,7 +48,7 @@ public abstract class LivingEntityMixin extends Entity implements Attackable {
     }
 
     @ModifyReturnValue(method = "getMaxHealth", at = @At("RETURN"))
-    private float judge$maxHealth(float original) {
+    private float redemption$judgeMaxHealth(float original) {
         LivingEntity living = (LivingEntity) (Object) this;
 
         if (living instanceof PlayerEntity player && JudgementComponent.KEY.get(player).isJudgement) {
@@ -58,7 +58,7 @@ public abstract class LivingEntityMixin extends Entity implements Attackable {
     }
 
     @WrapMethod(method = "heal")
-    private void judge$boostedHeal(float amount, Operation<Void> original) {
+    private void redemption$judgeBoostedHeal(float amount, Operation<Void> original) {
         LivingEntity living = (LivingEntity) (Object) this;
 
         if (living instanceof PlayerEntity player) {

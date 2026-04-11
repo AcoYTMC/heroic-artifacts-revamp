@@ -25,18 +25,14 @@ import net.minecraft.world.TeleportTarget;
 import net.minecraft.world.World;
 import org.jetbrains.annotations.Nullable;
 import silly.chemthunder.redemption.impl.Redemption;
-import silly.chemthunder.redemption.impl.component.AshiroKatanaComponent;
+import silly.chemthunder.redemption.impl.component.AshiroComponent;
 import silly.chemthunder.redemption.impl.index.RedemptionDataComponents;
-import silly.chemthunder.redemption.impl.index.data.RedemptionDamageSources;
+import silly.chemthunder.redemption.impl.index.data.RedemptionDamageTypes;
 
 import java.util.Arrays;
 import java.util.List;
 
 public class AshiroKatanaItem extends Item implements ColorableItem, CustomKillSourceItem, ModelVaryingItem, CustomHitParticleItem {
-    public int startColor(ItemStack itemStack) {return 0xFF450909;}
-    public int endColor(ItemStack itemStack) {return 0xFF942929;}
-    public int backgroundColor(ItemStack itemStack) {return 0xFF171414;}
-
     public static final SweepParticleEffect[] EFFECTS = new SweepParticleEffect[]{
             new SweepParticleEffect(0x402626, 0x240f0f),
             new SweepParticleEffect(0x292424, 0x171414)
@@ -44,23 +40,23 @@ public class AshiroKatanaItem extends Item implements ColorableItem, CustomKillS
 
     public AshiroKatanaItem(Settings settings) {
         super(settings
-                .component(RedemptionDataComponents.ASHIRO_KATANA, new AshiroKatanaComponent(World.OVERWORLD, Vec3d.ZERO))
+                .component(RedemptionDataComponents.ASHIRO, new AshiroComponent(World.OVERWORLD, Vec3d.ZERO))
         );
     }
 
     public DamageSource getKillSource(LivingEntity living) {
-        return RedemptionDamageSources.katana(living);
+        return RedemptionDamageTypes.create(living.getWorld(), RedemptionDamageTypes.KATANA);
     }
 
     public void appendTooltip(ItemStack stack, TooltipContext context, List<Text> tooltip, TooltipType type) {
-        var component = stack.get(RedemptionDataComponents.ASHIRO_KATANA);
+        var component = stack.get(RedemptionDataComponents.ASHIRO);
 
         if (component != null) {
             tooltip.add(Text.literal( Math.round(component.pos().x) + "").withColor(endColor(stack))
-                            .append(Text.literal(", ").formatted(Formatting.DARK_GRAY))
-                            .append(Text.literal( Math.round(component.pos().y) + "").withColor(endColor(stack))
+                    .append(Text.literal(", ").formatted(Formatting.DARK_GRAY))
+                    .append(Text.literal( Math.round(component.pos().y) + "").withColor(endColor(stack))
                             .append(Text.literal(", ")).formatted(Formatting.DARK_GRAY))
-                            .append(Text.literal( Math.round(component.pos().z) + "").withColor(endColor(stack))));
+                    .append(Text.literal( Math.round(component.pos().z) + "").withColor(endColor(stack))));
         }
 
         super.appendTooltip(stack, context, tooltip, type);
@@ -68,11 +64,11 @@ public class AshiroKatanaItem extends Item implements ColorableItem, CustomKillS
 
     public TypedActionResult<ItemStack> use(World world, PlayerEntity user, Hand hand) {
         ItemStack stack = user.getStackInHand(hand);
-        var component = stack.get(RedemptionDataComponents.ASHIRO_KATANA);
+        var component = stack.get(RedemptionDataComponents.ASHIRO);
 
         if (component != null) {
             if (user.isSneaking()) {
-                stack.set(RedemptionDataComponents.ASHIRO_KATANA, new AshiroKatanaComponent(user.getWorld().getRegistryKey(), user.getPos()));
+                stack.set(RedemptionDataComponents.ASHIRO, new AshiroComponent(user.getWorld().getRegistryKey(), user.getPos()));
                 if (world.isClient) user.swingHand(hand);
             } else {
                 if (user.getServer() != null) {
@@ -97,5 +93,17 @@ public class AshiroKatanaItem extends Item implements ColorableItem, CustomKillS
 
     public void spawnHitParticles(PlayerEntity player, Entity target) {
         ParticleUtils.spawnSweepParticles(EFFECTS[player.getRandom().nextInt(EFFECTS.length)], player);
+    }
+
+    public int startColor(ItemStack itemStack) {
+        return 0xFF450909;
+    }
+
+    public int endColor(ItemStack itemStack) {
+        return 0xFF942929;
+    }
+
+    public int backgroundColor(ItemStack itemStack) {
+        return 0xFF171414;
     }
 }

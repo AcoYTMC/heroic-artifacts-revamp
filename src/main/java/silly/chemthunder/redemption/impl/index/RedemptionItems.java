@@ -5,7 +5,10 @@ import net.acoyt.acornlib.api.registrants.ItemRegistrant;
 import net.minecraft.item.Item;
 import net.minecraft.sound.SoundEvents;
 import silly.chemthunder.redemption.impl.Redemption;
-import silly.chemthunder.redemption.impl.item.*;
+import silly.chemthunder.redemption.impl.item.AshiroKatanaItem;
+import silly.chemthunder.redemption.impl.item.CourtGlassItem;
+import silly.chemthunder.redemption.impl.item.HuntersCourtGlassItem;
+import silly.chemthunder.redemption.impl.item.ModelVaryingTextureTester;
 import silly.chemthunder.redemption.impl.item.katana.KatanaItem;
 import silly.chemthunder.redemption.impl.item.katana.SheathItem;
 import silly.chemthunder.redemption.impl.item.katana.SheathedKatanaItem;
@@ -172,8 +175,8 @@ public interface RedemptionItems {
 
     Item TEXTURE_TESTER = ITEMS.register("texture_tester", new ModelVaryingTextureTester(new AcornItemSettings()));
 
-    static void index() {
-        // colors
+    static void init() {
+        // Colors
         modifyItemNameColor(QUARTZ_KATANA, 0xc1c1d2);
         modifyItemNameColor(QUARTZ_SHEATH, 0xc1c1d2);
         modifyItemNameColor(QUARTZ_SHEATHED, 0xc1c1d2);

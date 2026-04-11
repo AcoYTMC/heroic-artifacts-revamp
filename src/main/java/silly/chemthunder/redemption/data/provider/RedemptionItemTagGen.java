@@ -17,7 +17,7 @@ public class RedemptionItemTagGen extends FabricTagProvider.ItemTagProvider {
         super(output, completableFuture);
     }
 
-    protected void configure(RegistryWrapper.WrapperLookup wrapperLookup) {
+    public void configure(RegistryWrapper.WrapperLookup wrapperLookup) {
         for (Item item : RedemptionItems.ITEMS.toRegister) {
             if (item instanceof KatanaItem) {
                 this.getOrCreateTagBuilder(RedemptionItemTags.KATANAS)
