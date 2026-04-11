@@ -28,7 +28,7 @@ public class ImmolationComponent implements AutoSyncedComponent, CommonTickingCo
 
     public void tick() {
         if (this.burning) {
-            this.living.damage(RedemptionDamageTypes.immolation(this.living), 1.0f);
+            this.living.damage(RedemptionDamageTypes.create(this.living.getWorld(), RedemptionDamageTypes.IMMOLATION), 1.0f);
 
             if (this.living.getWorld() instanceof ServerWorld serverWorld) {
                 serverWorld.spawnParticles(ParticleTypes.FLAME,

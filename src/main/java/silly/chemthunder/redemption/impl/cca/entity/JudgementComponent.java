@@ -72,7 +72,7 @@ public class JudgementComponent implements AutoSyncedComponent, CommonTickingCom
         if (world instanceof ServerWorld serverWorld) {
             player.dropStack(RedemptionItems.COURT_GLASS.getDefaultStack());
             player.setInvulnerable(false);
-            player.damage(RedemptionDamageTypes.descend(player), player.getMaxHealth() * 50);
+            player.damage(RedemptionDamageTypes.create(world, RedemptionDamageTypes.DESCEND), player.getMaxHealth() * 50);
 
             serverWorld.spawnParticles(ParticleTypes.SOUL, player.getX(), player.getY(), player.getZ(), 75, 0.3f, 0.6f, 0.3f, 0.5);
             serverWorld.spawnParticles(ParticleTypes.END_ROD, player.getX(), player.getY(), player.getZ(), 75, 0.3f, 0.6f, 0.3f, 0.5);

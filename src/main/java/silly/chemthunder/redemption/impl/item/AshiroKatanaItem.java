@@ -81,13 +81,13 @@ public class AshiroKatanaItem extends Item implements ColorableItem, CustomKillS
     }
 
     public Identifier getModel(ModelTransformationMode renderMode, ItemStack stack, @Nullable LivingEntity entity) {
-        return MiscUtils.isGui(renderMode) ? Redemption.id("netherite_katana") : Redemption.id("netherite_katana_handheld");
+        return MiscUtils.isGui(renderMode) ? Redemption.id("netherite_katana") : Redemption.id("netherite_katana_in_hand");
     }
 
     public List<Identifier> getModelsToLoad() {
         return Arrays.asList(
                 Redemption.id("netherite_katana"),
-                Redemption.id("netherite_katana_handheld")
+                Redemption.id("netherite_katana_in_hand")
         );
     }
 

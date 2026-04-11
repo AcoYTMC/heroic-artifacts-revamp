@@ -31,7 +31,7 @@ public abstract class PlayerEntityRendererMixin extends LivingEntityRenderer<Abs
             if (player.isUsingItem()) cir.setReturnValue(BipedEntityModel.ArmPose.BLOCK);
         }
 
-        if (player.getStackInHand(hand).getItem() instanceof KatanaItem && player.isUsingItem() && JudgementComponent.KEY.get(player).isJudgement) {
+        if (player.getStackInHand(hand).getItem() instanceof KatanaItem && player.isUsingItem() && JudgementComponent.KEY.get(player).isJudgement()) {
             cir.setReturnValue(BipedEntityModel.ArmPose.CROSSBOW_HOLD);
         }
     }

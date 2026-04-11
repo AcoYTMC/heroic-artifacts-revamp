@@ -56,7 +56,7 @@ public abstract class InGameHudOverlay {
     )
     private void redemption$textureHotbar(DrawContext instance, Identifier texture, int x, int y, int width, int height, Operation<Void> original) {
         ClientPlayerEntity player = MinecraftClient.getInstance().player;
-        original.call(instance, player != null && JudgementComponent.KEY.get(player).isJudgement ? CUSTOM_HOTBAR : texture, x, y, width, height);
+        original.call(instance, player != null && JudgementComponent.KEY.get(player).isJudgement() ? CUSTOM_HOTBAR : texture, x, y, width, height);
     }
 
     @WrapOperation(
@@ -69,6 +69,6 @@ public abstract class InGameHudOverlay {
     )
     private void redemption$textureSelector(DrawContext instance, Identifier texture, int x, int y, int width, int height, Operation<Void> original) {
         ClientPlayerEntity player = MinecraftClient.getInstance().player;
-        original.call(instance, player != null && JudgementComponent.KEY.get(player).isJudgement ? CUSTOM_HOTBAR_SELECTOR : texture, x, y, width, height);
+        original.call(instance, player != null && JudgementComponent.KEY.get(player).isJudgement() ? CUSTOM_HOTBAR_SELECTOR : texture, x, y, width, height);
     }
 }
