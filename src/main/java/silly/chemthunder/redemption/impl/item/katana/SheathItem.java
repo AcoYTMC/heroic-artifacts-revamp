@@ -33,12 +33,12 @@ public class SheathItem extends Item implements ColorableItem, ModelVaryingItem 
         return AttributeModifiersComponent.builder()
                 .add(
                         EntityAttributes.GENERIC_ARMOR,
-                        new EntityAttributeModifier(Identifier.ofVanilla("generic_armor"), 2.5f, EntityAttributeModifier.Operation.ADD_VALUE),
+                        new EntityAttributeModifier(Identifier.ofVanilla("generic_armor"), 1.5f, EntityAttributeModifier.Operation.ADD_VALUE),
                         AttributeModifierSlot.OFFHAND
                 )
                 .add(
                         EntityAttributes.GENERIC_MOVEMENT_SPEED,
-                        new EntityAttributeModifier(Identifier.ofVanilla("generic_movement_speed"), 0.1f, EntityAttributeModifier.Operation.ADD_VALUE),
+                        new EntityAttributeModifier(Identifier.ofVanilla("generic_movement_speed"), 0.02f, EntityAttributeModifier.Operation.ADD_VALUE),
                         AttributeModifierSlot.OFFHAND
                 )
                 .build();

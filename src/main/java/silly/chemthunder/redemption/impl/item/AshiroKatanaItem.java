@@ -20,7 +20,6 @@ import net.minecraft.util.Formatting;
 import net.minecraft.util.Hand;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.TypedActionResult;
-import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.TeleportTarget;
 import net.minecraft.world.World;
 import org.jetbrains.annotations.Nullable;
@@ -39,9 +38,7 @@ public class AshiroKatanaItem extends Item implements ColorableItem, CustomKillS
     };
 
     public AshiroKatanaItem(Settings settings) {
-        super(settings
-                .component(RedemptionDataComponents.ASHIRO, new AshiroComponent(World.OVERWORLD, Vec3d.ZERO))
-        );
+        super(settings);
     }
 
     public DamageSource getKillSource(LivingEntity living) {
@@ -69,25 +66,26 @@ public class AshiroKatanaItem extends Item implements ColorableItem, CustomKillS
         if (component != null) {
             if (user.isSneaking()) {
                 stack.set(RedemptionDataComponents.ASHIRO, new AshiroComponent(user.getWorld().getRegistryKey(), user.getPos()));
-                if (world.isClient) user.swingHand(hand);
             } else {
                 if (user.getServer() != null) {
                     user.teleportTo(new TeleportTarget(user.getServer().getWorld(component.dimension()), component.pos(), user.getVelocity(), user.getYaw(), user.getPitch(), TeleportTarget.NO_OP));
                 }
             }
+
+            return TypedActionResult.success(user.getStackInHand(hand), world.isClient);
         }
 
         return super.use(world, user, hand);
     }
 
     public Identifier getModel(ModelTransformationMode renderMode, ItemStack stack, @Nullable LivingEntity entity) {
-        return MiscUtils.isGui(renderMode) ? Redemption.id("netherite_katana") : Redemption.id("netherite_katana_in_hand");
+        return MiscUtils.isGui(renderMode) ? Redemption.id("ashiro_katana") : Redemption.id("ashiro_katana_in_hand");
     }
 
     public List<Identifier> getModelsToLoad() {
         return Arrays.asList(
-                Redemption.id("netherite_katana"),
-                Redemption.id("netherite_katana_in_hand")
+                Redemption.id("ashiro_katana"),
+                Redemption.id("ashiro_katana_in_hand")
         );
     }
 
