@@ -169,7 +169,7 @@ public class KatanaItem extends Item implements ColorableItem, ModelVaryingItem,
         KatanaComponent component = stack.getOrDefault(RedemptionDataComponents.KATANA, KatanaComponent.DEFAULT);
         Identifier base = Redemption.id(component.type().id);
         Identifier katanaId = base.withSuffixedPath("_katana");
-        Identifier sheathedId = base.withSuffixedPath("_sheathed");
+        Identifier sheathedId = base.withPrefixedPath("sheathed_").withSuffixedPath("_katana");
         Identifier sheathId = base.withSuffixedPath("_sheath");
 
         return component.getBladeType() == KatanaComponent.BladeType.KATANA

@@ -13,7 +13,7 @@ public class Redemption implements ModInitializer {
 
     public void onInitialize() {
         /* AcornLib */
-        ALib.registerModMenu(MOD_ID, 0xe95050);
+        ALib.registerModMenu(MOD_ID, 0xFFe95050);
 
         /* Initialization */
         RedemptionItems.init();

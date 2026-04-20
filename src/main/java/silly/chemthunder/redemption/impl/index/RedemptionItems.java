@@ -5,7 +5,9 @@ import net.minecraft.item.Item;
 import net.minecraft.sound.SoundEvents;
 import silly.chemthunder.redemption.impl.Redemption;
 import silly.chemthunder.redemption.impl.component.KatanaComponent;
-import silly.chemthunder.redemption.impl.item.*;
+import silly.chemthunder.redemption.impl.item.CourtGlassItem;
+import silly.chemthunder.redemption.impl.item.HuntersCourtGlassItem;
+import silly.chemthunder.redemption.impl.item.KatanaItem;
 import silly.chemthunder.redemption.impl.util.KatanaSettings;
 import silly.chemthunder.redemption.impl.util.KatanaType;
 
@@ -159,17 +161,17 @@ public interface RedemptionItems {
 
 
     // Ashiro
-    Item ASHIRO_KATANA = ITEMS.register("ashiro_katana", AshiroKatanaItem::new, new KatanaSettings()
+    Item ASHIRO_KATANA = ITEMS.register("ashiro_katana", KatanaItem::new, new KatanaSettings()
             .katana(KatanaComponent.BladeType.KATANA, KatanaType.ASHIRO)
             .maxCount(1)
             .attributeModifiers(KatanaItem.createAttributeModifiers(KatanaComponent.BladeType.KATANA)));
 
-    Item ASHIRO_SHEATH = ITEMS.register("ashiro_sheath", AshiroKatanaItem::new, new KatanaSettings()
+    Item ASHIRO_SHEATH = ITEMS.register("ashiro_sheath", KatanaItem::new, new KatanaSettings()
             .katana(KatanaComponent.BladeType.SHEATH, KatanaType.ASHIRO)
             .maxCount(1)
             .attributeModifiers(KatanaItem.createAttributeModifiers(KatanaComponent.BladeType.SHEATH)));
 
-    Item SHEATHED_ASHIRO_KATANA = ITEMS.register("sheathed_ashiro_katana", SheathedAshiroKatanaItem::new, new KatanaSettings()
+    Item SHEATHED_ASHIRO_KATANA = ITEMS.register("sheathed_ashiro_katana", KatanaItem::new, new KatanaSettings()
             .katana(KatanaComponent.BladeType.SHEATHED, KatanaType.ASHIRO)
             .maxCount(1)
             .attributeModifiers(KatanaItem.createAttributeModifiers(KatanaComponent.BladeType.SHEATHED)));
