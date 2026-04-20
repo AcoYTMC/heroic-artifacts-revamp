@@ -1,0 +1,18 @@
+package silly.chemthunder.redemption.impl.util;
+
+import net.acoyt.acornlib.api.item.AcornItemSettings;
+import org.joml.Vector4i;
+import silly.chemthunder.redemption.impl.component.KatanaComponent;
+import silly.chemthunder.redemption.impl.index.RedemptionDataComponents;
+
+public class RedemptionItemSettings extends AcornItemSettings {
+    public RedemptionItemSettings katana(KatanaComponent.BladeType bladeType, KatanaType katanaType) {
+        this.component(RedemptionDataComponents.KATANA, new KatanaComponent(bladeType.isSheathed(), bladeType.isSheath(), katanaType));
+        return this;
+    }
+
+    public RedemptionItemSettings color(int nameColor, int startColor, int endColor, int backgroundColor) {
+        this.component(RedemptionDataComponents.COLORS, new Vector4i(nameColor, startColor, endColor, backgroundColor));
+        return this;
+    }
+}

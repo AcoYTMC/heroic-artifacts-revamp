@@ -23,8 +23,11 @@ import net.minecraft.util.math.Box;
 import net.minecraft.world.World;
 import silly.chemthunder.redemption.impl.cca.entity.JudgementComponent;
 import silly.chemthunder.redemption.impl.cca.entity.flash.JudgementFlashComponent;
+import silly.chemthunder.redemption.impl.component.KatanaComponent;
+import silly.chemthunder.redemption.impl.index.RedemptionDataComponents;
 import silly.chemthunder.redemption.impl.index.RedemptionItems;
 import silly.chemthunder.redemption.impl.index.RedemptionSoundEvents;
+import silly.chemthunder.redemption.impl.util.ModUtils;
 
 import java.util.List;
 
@@ -115,12 +118,24 @@ public class CourtGlassItem extends Item implements ColorableItem {
         for (int i = 0; i < 15; i++) {
             WitherSkeletonEntity glassCannon = new WitherSkeletonEntity(EntityType.WITHER_SKELETON, world);
 
-            glassCannon.equipStack(EquipmentSlot.MAINHAND, RedemptionItems.SCULK_KATANA.getDefaultStack());
-            glassCannon.equipStack(EquipmentSlot.OFFHAND, RedemptionItems.SCULK_SHEATH.getDefaultStack());
+            ItemStack katana = RedemptionItems.SCULK_KATANA.getDefaultStack();
+            ItemStack sheath = ModUtils.copy(katana,
+                    RedemptionDataComponents.KATANA,
+                    KatanaComponent.get(katana)
+                            .withBladeType(KatanaComponent.BladeType.SHEATH)
+            );
+
+            glassCannon.equipStack(EquipmentSlot.MAINHAND, katana);
+            glassCannon.equipStack(EquipmentSlot.OFFHAND, sheath);
             glassCannon.equipStack(EquipmentSlot.HEAD, Items.DIAMOND_HELMET.getDefaultStack());
             glassCannon.equipStack(EquipmentSlot.CHEST, Items.DIAMOND_CHESTPLATE.getDefaultStack());
             glassCannon.equipStack(EquipmentSlot.LEGS, Items.DIAMOND_LEGGINGS.getDefaultStack());
             glassCannon.equipStack(EquipmentSlot.FEET, Items.DIAMOND_BOOTS.getDefaultStack());
+
+            for (EquipmentSlot slot : EquipmentSlot.values()) {
+                if (glassCannon.getEquippedStack(slot).isEmpty()) continue;
+                glassCannon.setEquipmentDropChance(slot, 0.0F);
+            }
 
             glassCannon.updatePosition(user.getX(), user.getY(), user.getZ());
             glassCannon.setCustomNameVisible(true);

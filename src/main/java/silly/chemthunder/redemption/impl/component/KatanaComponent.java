@@ -3,8 +3,10 @@ package silly.chemthunder.redemption.impl.component;
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import io.netty.buffer.ByteBuf;
+import net.minecraft.item.ItemStack;
 import net.minecraft.network.codec.PacketCodec;
 import net.minecraft.network.codec.PacketCodecs;
+import silly.chemthunder.redemption.impl.index.RedemptionDataComponents;
 import silly.chemthunder.redemption.impl.util.KatanaType;
 
 public record KatanaComponent(boolean sheathed, boolean sheath, KatanaType type) {
@@ -18,7 +20,11 @@ public record KatanaComponent(boolean sheathed, boolean sheath, KatanaType type)
 
     public static final PacketCodec<ByteBuf, KatanaComponent> PACKET_CODEC = PacketCodecs.codec(CODEC);
 
-    public KatanaComponent setBladeType(BladeType bladeType) {
+    public static KatanaComponent get(ItemStack stack) {
+        return stack.getOrDefault(RedemptionDataComponents.KATANA, DEFAULT);
+    }
+
+    public KatanaComponent withBladeType(BladeType bladeType) {
         return new KatanaComponent(bladeType.sheathed, bladeType.sheath, this.type);
     }
 

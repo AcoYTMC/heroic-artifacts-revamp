@@ -8,24 +8,6 @@
     "redemption:netherite_katana",
     "redemption:emerald_katana",
     "redemption:sculk_katana",
-    "redemption:quartz_sheath",
-    "redemption:redstone_sheath",
-    "redemption:emerald_sheath",
-    "redemption:copper_sheath",
-    "redemption:netherite_sheath",
-    "redemption:amethyst_sheath",
-    "redemption:sculk_sheath",
-    "redemption:lapis_sheath",
-    "redemption:sheathed_amethyst_katana",
-    "redemption:sheathed_netherite_katana",
-    "redemption:sheathed_lapis_katana",
-    "redemption:sheathed_redstone_katana",
-    "redemption:sheathed_emerald_katana",
-    "redemption:sheathed_sculk_katana",
-    "redemption:sheathed_quartz_katana",
-    "redemption:sheathed_copper_katana",
-    "redemption:ashiro_katana",
-    "redemption:ashiro_sheath",
-    "redemption:sheathed_ashiro_katana"
+    "redemption:ashiro_katana"
   ]
 }
