@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:item/generated",
+  "textures": {
+    "layer0": "redemption:sheathed_item/sheathed_emerald_katana_katana"
+  }
+}

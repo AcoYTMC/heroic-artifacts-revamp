@@ -5,44 +5,51 @@ import net.minecraft.entity.effect.StatusEffectInstance;
 import net.minecraft.entity.effect.StatusEffects;
 import net.minecraft.item.Item;
 import net.minecraft.registry.entry.RegistryEntry;
+import net.minecraft.util.StringIdentifiable;
 
 import java.util.Arrays;
 import java.util.List;
 
 import static silly.chemthunder.redemption.impl.index.RedemptionItems.*;
 
-public enum KatanaType {
+@SuppressWarnings("deprecation")
+public enum KatanaType implements StringIdentifiable {
     AMETHYST("amethyst",
-            AMETHYST_KATANA, AMETHYST_SHEATH, AMETHYST_SHEATHED,
+            AMETHYST_KATANA, AMETHYST_SHEATH, SHEATHED_AMETHYST_KATANA,
             StatusEffects.SPEED
     ),
     COPPER("copper",
-            COPPER_KATANA, COPPER_SHEATH, COPPER_SHEATHED,
+            COPPER_KATANA, COPPER_SHEATH, SHEATHED_COPPER_KATANA,
             StatusEffects.TRIAL_OMEN
     ),
     EMERALD("emerald",
-            EMERALD_KATANA, EMERALD_SHEATH, EMERALD_SHEATHED,
+            EMERALD_KATANA, EMERALD_SHEATH, SHEATHED_EMERALD_KATANA,
             StatusEffects.HERO_OF_THE_VILLAGE
     ),
     LAPIS("lapis",
-            LAPIS_KATANA, LAPIS_SHEATH, LAPIS_SHEATHED,
+            LAPIS_KATANA, LAPIS_SHEATH, SHEATHED_LAPIS_KATANA,
             StatusEffects.HASTE
     ),
     NETHERITE("netherite",
-            NETHERITE_KATANA, NETHERITE_SHEATH, NETHERITE_SHEATHED,
+            NETHERITE_KATANA, NETHERITE_SHEATH, SHEATHED_NETHERITE_KATANA,
             StatusEffects.STRENGTH, StatusEffects.RESISTANCE
     ),
     QUARTZ("quartz",
-            QUARTZ_KATANA, QUARTZ_SHEATH, QUARTZ_SHEATHED,
+            QUARTZ_KATANA, QUARTZ_SHEATH, SHEATHED_QUARTZ_KATANA,
             StatusEffects.FIRE_RESISTANCE
     ),
     REDSTONE("redstone",
-            REDSTONE_KATANA, REDSTONE_SHEATH, REDSTONE_SHEATHED,
+            REDSTONE_KATANA, REDSTONE_SHEATH, SHEATHED_REDSTONE_KATANA,
             StatusEffects.STRENGTH
     ),
     SCULK("sculk",
-            SCULK_KATANA, SCULK_SHEATH, SCULK_SHEATHED
+            SCULK_KATANA, SCULK_SHEATH, SHEATHED_SCULK_KATANA
+    ), // No effects
+    ASHIRO("ashiro",
+            ASHIRO_KATANA, ASHIRO_SHEATH, SHEATHED_ASHIRO_KATANA
     ); // No effects
+
+    public static final StringIdentifiable.EnumCodec<KatanaType> CODEC = StringIdentifiable.createCodec(KatanaType::values);
 
     public final String id;
     public final Item katana;
@@ -68,5 +75,9 @@ public enum KatanaType {
         }
 
         return AMETHYST;
+    }
+
+    public String asString() {
+        return this.id;
     }
 }

@@ -12,7 +12,6 @@ import net.minecraft.entity.attribute.EntityAttributes;
 import net.minecraft.entity.effect.StatusEffectInstance;
 import net.minecraft.entity.effect.StatusEffects;
 import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.predicate.entity.EntityPredicates;
@@ -36,38 +35,42 @@ public class SheathedKatanaItem extends Item implements ColorableItem, ModelVary
 
     public TypedActionResult<ItemStack> use(World world, PlayerEntity user, Hand hand) {
         ItemStack stack = user.getStackInHand(hand);
-        KatanaType katanaType = KatanaType.getForItem(stack.getItem());
+        if (user.getOffHandStack().isEmpty()) {
+            KatanaType katanaType = KatanaType.getForItem(stack.getItem());
 
-        ItemStack mainStack = new ItemStack(katanaType.katana);
-        ItemStack offStack = new ItemStack(katanaType.sheath);
-        List<StatusEffectInstance> effects = katanaType.effectInstances;
+            ItemStack mainStack = new ItemStack(katanaType.katana);
+            ItemStack offStack = new ItemStack(katanaType.sheath);
+            List<StatusEffectInstance> effects = katanaType.effectInstances;
 
-        user.setStackInHand(Hand.MAIN_HAND, mainStack);
-        user.getInventory().insertStack(PlayerInventory.OFF_HAND_SLOT, offStack);
-        stack.decrement(1);
+            user.setStackInHand(Hand.MAIN_HAND, mainStack);
+            user.setStackInHand(Hand.OFF_HAND, offStack);
+            stack.decrement(1);
 
-        if (!effects.isEmpty()) {
-            for (StatusEffectInstance instance : effects) {
-                user.addStatusEffect(instance);
+            if (!effects.isEmpty()) {
+                for (StatusEffectInstance instance : effects) {
+                    user.addStatusEffect(instance);
+                }
             }
-        }
 
-        if (katanaType == KatanaType.NETHERITE) {
-            user.damage(user.getDamageSources().magic(), 4.0F);
-        }
-
-        if (katanaType == KatanaType.SCULK) {
-            Box box = new Box(user.getBlockPos()).expand(10);
-
-            for (LivingEntity living : world.getEntitiesByClass(LivingEntity.class, box, EntityPredicates.EXCEPT_SPECTATOR.and(entity -> entity != user))) {
-                living.addStatusEffect(new StatusEffectInstance(StatusEffects.DARKNESS, 400));
+            if (katanaType == KatanaType.NETHERITE) {
+                user.damage(user.getDamageSources().magic(), 4.0F);
             }
+
+            if (katanaType == KatanaType.SCULK) {
+                Box box = new Box(user.getBlockPos()).expand(10);
+
+                for (LivingEntity living : world.getEntitiesByClass(LivingEntity.class, box, EntityPredicates.EXCEPT_SPECTATOR.and(entity -> entity != user))) {
+                    living.addStatusEffect(new StatusEffectInstance(StatusEffects.DARKNESS, 400));
+                }
+            }
+
+            user.addStatusEffect(new StatusEffectInstance(StatusEffects.GLOWING, 400));
+            user.playSound(RedemptionSoundEvents.UNSHEATHE);
+
+            return TypedActionResult.success(user.getStackInHand(hand), world.isClient);
         }
 
-        user.addStatusEffect(new StatusEffectInstance(StatusEffects.GLOWING, 400));
-        user.playSound(RedemptionSoundEvents.UNSHEATHE);
-
-        return TypedActionResult.success(user.getStackInHand(hand), world.isClient);
+        return TypedActionResult.fail(user.getStackInHand(hand));
     }
 
     public static AttributeModifiersComponent createAttributeModifiers() {

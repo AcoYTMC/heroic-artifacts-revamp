@@ -8,7 +8,6 @@ import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.effect.StatusEffectInstance;
 import net.minecraft.entity.effect.StatusEffects;
 import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.Hand;
@@ -30,17 +29,21 @@ public class SheathedAshiroKatanaItem extends Item implements ColorableItem, Mod
 
     public TypedActionResult<ItemStack> use(World world, PlayerEntity user, Hand hand) {
         ItemStack stack = user.getStackInHand(hand);
-        ItemStack mainStack = new ItemStack(RedemptionItems.ASHIRO_KATANA);
-        ItemStack offStack = new ItemStack(RedemptionItems.ASHIRO_SHEATH);
+        if (user.getOffHandStack().isEmpty()) {
+            ItemStack mainStack = new ItemStack(RedemptionItems.ASHIRO_KATANA);
+            ItemStack offStack = new ItemStack(RedemptionItems.ASHIRO_SHEATH);
 
-        user.setStackInHand(Hand.MAIN_HAND, mainStack);
-        user.getInventory().insertStack(PlayerInventory.OFF_HAND_SLOT, offStack);
-        stack.decrement(1);
+            user.setStackInHand(Hand.MAIN_HAND, mainStack);
+            user.setStackInHand(Hand.OFF_HAND, offStack);
+            stack.decrement(1);
 
-        user.addStatusEffect(new StatusEffectInstance(StatusEffects.GLOWING, 400));
-        user.playSound(RedemptionSoundEvents.UNSHEATHE);
+            user.addStatusEffect(new StatusEffectInstance(StatusEffects.GLOWING, 400));
+            user.playSound(RedemptionSoundEvents.UNSHEATHE);
 
-        return TypedActionResult.success(user.getStackInHand(hand), world.isClient);
+            return TypedActionResult.success(user.getStackInHand(hand), world.isClient);
+        }
+
+        return TypedActionResult.fail(user.getStackInHand(hand));
     }
 
     public Identifier getModel(ModelTransformationMode renderMode, ItemStack stack, @Nullable LivingEntity entity) {

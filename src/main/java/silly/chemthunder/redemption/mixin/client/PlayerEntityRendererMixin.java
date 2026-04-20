@@ -8,6 +8,7 @@ import net.minecraft.client.render.entity.PlayerEntityRenderer;
 import net.minecraft.client.render.entity.model.BipedEntityModel;
 import net.minecraft.client.render.entity.model.PlayerEntityModel;
 import net.minecraft.client.util.math.MatrixStack;
+import net.minecraft.item.ItemStack;
 import net.minecraft.util.Hand;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
@@ -16,8 +17,8 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 import silly.chemthunder.redemption.impl.cca.entity.EnshroudedComponent;
 import silly.chemthunder.redemption.impl.cca.entity.JudgementComponent;
-import silly.chemthunder.redemption.impl.item.katana.KatanaItem;
-import silly.chemthunder.redemption.impl.item.katana.SheathItem;
+import silly.chemthunder.redemption.impl.component.KatanaComponent;
+import silly.chemthunder.redemption.impl.index.RedemptionDataComponents;
 
 @Mixin(PlayerEntityRenderer.class)
 public abstract class PlayerEntityRendererMixin extends LivingEntityRenderer<AbstractClientPlayerEntity, PlayerEntityModel<AbstractClientPlayerEntity>> {
@@ -27,11 +28,15 @@ public abstract class PlayerEntityRendererMixin extends LivingEntityRenderer<Abs
 
     @Inject(method = "getArmPose", at = @At("HEAD"), cancellable = true)
     private static void redemption$sheathPose(AbstractClientPlayerEntity player, Hand hand, CallbackInfoReturnable<BipedEntityModel.ArmPose> cir) {
-        if (player.getStackInHand(hand).getItem() instanceof SheathItem) {
-            if (player.isUsingItem()) cir.setReturnValue(BipedEntityModel.ArmPose.BLOCK);
+        ItemStack stack = player.getStackInHand(hand);
+        KatanaComponent component = stack.get(RedemptionDataComponents.KATANA);
+        if (component == null) return;
+
+        if (component.getBladeType() == KatanaComponent.BladeType.SHEATH && player.getActiveItem() == stack) {
+            cir.setReturnValue(BipedEntityModel.ArmPose.BLOCK);
         }
 
-        if (player.getStackInHand(hand).getItem() instanceof KatanaItem && player.isUsingItem() && JudgementComponent.KEY.get(player).isJudgement()) {
+        if (component.getBladeType() == KatanaComponent.BladeType.KATANA && player.getActiveItem() == stack && JudgementComponent.KEY.get(player).isJudgement()) {
             cir.setReturnValue(BipedEntityModel.ArmPose.CROSSBOW_HOLD);
         }
     }
