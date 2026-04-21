@@ -19,7 +19,7 @@ import silly.chemthunder.redemption.impl.util.ModUtils;
 @Mixin(ItemRegistrant.class)
 public abstract class ItemRegistrantMixin {
     @WrapMethod(method = "lambda$registerLang$1")
-    private void registerMultipleForKatanas(FabricLanguageProvider.TranslationBuilder builder, Item item, Operation<Void> original) {
+    private void redemption$registerMultipleForKatanas(FabricLanguageProvider.TranslationBuilder builder, Item item, Operation<Void> original) {
         if (item instanceof KatanaItem) {
             for (KatanaComponent.BladeType bladeType : KatanaComponent.BladeType.values()) {
                 Identifier id = ModUtils.formatKatanaId(item, bladeType, KatanaComponent.get(item.getDefaultStack()).type(), false);

@@ -18,7 +18,7 @@ public class CommandManagerMixin {
                     target = "Lnet/minecraft/SharedConstants;isDevelopment:Z"
             )
     )
-    private boolean whyTheFuckIsThisHere(boolean original) {
+    private boolean redemption$whyTheFuckIsThisHere(boolean original) {
         return original || FabricLoader.getInstance().isDevelopmentEnvironment();
     }
 }

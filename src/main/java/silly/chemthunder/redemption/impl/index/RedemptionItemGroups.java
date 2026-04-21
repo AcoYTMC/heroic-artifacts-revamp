@@ -3,6 +3,7 @@ package silly.chemthunder.redemption.impl.index;
 import net.fabricmc.fabric.api.itemgroup.v1.FabricItemGroup;
 import net.fabricmc.fabric.api.itemgroup.v1.FabricItemGroupEntries;
 import net.fabricmc.fabric.api.itemgroup.v1.ItemGroupEvents;
+import net.minecraft.component.DataComponentTypes;
 import net.minecraft.item.ItemGroup;
 import net.minecraft.item.ItemStack;
 import net.minecraft.registry.Registries;
@@ -29,17 +30,18 @@ public interface RedemptionItemGroups {
 
     private static void addEntries(FabricItemGroupEntries itemGroup) {
         RedemptionItems.ITEMS.toRegister.forEach(item -> {
-            itemGroup.add(item);
-
             if (item instanceof KatanaItem) {
-                ItemStack stack = item.getDefaultStack();
-                KatanaComponent component = KatanaComponent.get(stack);
+                for (KatanaComponent.BladeType bladeType : KatanaComponent.BladeType.values()) {
+                    ItemStack stack = item.getDefaultStack();
+                    KatanaComponent component = KatanaComponent.get(stack);
 
-                ItemStack sheathStack = ModUtils.copy(stack, RedemptionDataComponents.KATANA, component.withBladeType(KatanaComponent.BladeType.SHEATH));
-                ItemStack sheathedStack = ModUtils.copy(stack, RedemptionDataComponents.KATANA, component.withBladeType(KatanaComponent.BladeType.SHEATHED));
+                    stack.set(RedemptionDataComponents.KATANA, component.withBladeType(bladeType));
+                    stack.set(DataComponentTypes.ATTRIBUTE_MODIFIERS, KatanaItem.createAttributeModifiers(bladeType));
 
-                itemGroup.add(sheathStack);
-                itemGroup.add(sheathedStack);
+                    itemGroup.add(stack);
+                }
+            } else {
+                itemGroup.add(item);
             }
         });
     }

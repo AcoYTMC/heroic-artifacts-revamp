@@ -7,11 +7,11 @@
         "EntityMixin",
         "LivingEntityMixin",
         "PlayerEntityMixin",
-        "compat.acornlib.ItemRegistrantMixin",
-        "compat.acornlib.LivingEntityMixin"
+        "compat.acornlib.ItemRegistrantMixin"
     ],
     "client": [
         "client.ArmorFeatureRendererMixin",
+        "client.EntityRenderDispatcherMixin",
         "client.InGameHudOverlay",
         "client.PlayerEntityRendererMixin"
     ],

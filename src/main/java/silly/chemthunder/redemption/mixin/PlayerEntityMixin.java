@@ -29,9 +29,7 @@ public abstract class PlayerEntityMixin extends LivingEntity {
 
     @Inject(method = "playStepSound", at = @At("RETURN"), cancellable = true)
     private void redemption$cancelStepSounds(BlockPos pos, BlockState state, CallbackInfo ci) {
-        if (EnshroudedComponent.KEY.get(this).isShrouded()) {
-            ci.cancel();
-        }
+        if (EnshroudedComponent.KEY.get(this).isShrouded()) ci.cancel();
     }
 
     @Inject(method = "attack", at = @At("TAIL"))
@@ -46,14 +44,13 @@ public abstract class PlayerEntityMixin extends LivingEntity {
 
     @Unique
     public void redemption$disableCloak(PlayerEntity player) {
-        EnshroudedComponent comp = EnshroudedComponent.KEY.get(player);
+        EnshroudedComponent component = EnshroudedComponent.KEY.get(player);
         double x = player.getX();
         double y = player.getY();
         double z = player.getZ();
 
-        if (comp.isShrouded()) {
-            comp.setShrouded(false);
-            player.setInvisible(false);
+        if (component.isShrouded()) {
+            component.setShrouded(false);
             if (this.getWorld() instanceof ServerWorld serverWorld) {
                 serverWorld.spawnParticles(RedemptionParticles.HUNTER_OMEN, x, y + 0.5f, z, 15, 0, 0, 0, 0.03f);
                 serverWorld.spawnParticles(ParticleTypes.SQUID_INK, x, y + 0.5f, z, 15, 0, 0, 0, 0.03f);

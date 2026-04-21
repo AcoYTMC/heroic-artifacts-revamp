@@ -40,8 +40,8 @@ public record KatanaComponent(boolean sheathed, boolean sheath, KatanaType type)
 
     public enum BladeType {
         KATANA(false, false),
-        SHEATHED(true, false),
-        SHEATH(false, true);
+        SHEATH(false, true),
+        SHEATHED(true, false);
 
         private final boolean sheathed;
         private final boolean sheath;

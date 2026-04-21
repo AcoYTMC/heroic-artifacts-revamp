@@ -1,4 +1,4 @@
-package silly.chemthunder.redemption.impl.event;
+package silly.chemthunder.redemption.impl.event.client;
 
 import net.acoyt.acornlib.api.event.CustomRiptideEvent;
 import net.minecraft.entity.player.PlayerEntity;
