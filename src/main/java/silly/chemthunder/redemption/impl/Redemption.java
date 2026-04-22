@@ -18,7 +18,7 @@ public class Redemption implements ModInitializer {
         /* Initialization */
         RedemptionItems.init();
         RedemptionItemGroups.init();
-        RedemptionSoundEvents.init();
+        RedemptionSounds.init();
         RedemptionParticles.init();
         RedemptionDataComponents.init();
         RedemptionEntities.init();

@@ -23,14 +23,14 @@ public abstract class LivingEntityMixin extends Entity implements Attackable {
         super(type, world);
     }
 
-    @Inject(method = "tryUseTotem", at = @At("HEAD"), cancellable = true)
+    @Inject(method = "tryUseTotem", at = @At("RETURN"), cancellable = true)
     private void redemption$deathEffect(DamageSource source, CallbackInfoReturnable<Boolean> cir) {
         LivingEntity living = (LivingEntity)(Object)this;
 
         if (living instanceof PlayerEntity player) {
             JudgementComponent judge = JudgementComponent.KEY.get(player);
 
-            if (judge.isJudgement()) {
+            if (judge.isJudgement() && !cir.getReturnValue()) {
                 if (!source.isOf(RedemptionDamageTypes.DESCEND)) {
                     player.setHealth(player.getMaxHealth());
                     player.setVelocity(0, 0.3, 0);

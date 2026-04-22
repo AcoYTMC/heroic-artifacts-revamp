@@ -17,10 +17,13 @@ import net.minecraft.entity.damage.DamageSource;
 import net.minecraft.entity.effect.StatusEffectInstance;
 import net.minecraft.entity.effect.StatusEffects;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.inventory.StackReference;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.predicate.entity.EntityPredicates;
+import net.minecraft.screen.slot.Slot;
 import net.minecraft.server.world.ServerWorld;
+import net.minecraft.sound.SoundEvents;
 import net.minecraft.text.Text;
 import net.minecraft.util.*;
 import net.minecraft.util.math.Box;
@@ -33,7 +36,7 @@ import silly.chemthunder.redemption.impl.cca.entity.JudgementComponent;
 import silly.chemthunder.redemption.impl.component.AshiroComponent;
 import silly.chemthunder.redemption.impl.component.KatanaComponent;
 import silly.chemthunder.redemption.impl.index.RedemptionDataComponents;
-import silly.chemthunder.redemption.impl.index.RedemptionSoundEvents;
+import silly.chemthunder.redemption.impl.index.RedemptionSounds;
 import silly.chemthunder.redemption.impl.index.data.RedemptionDamageTypes;
 import silly.chemthunder.redemption.impl.util.KatanaType;
 import silly.chemthunder.redemption.impl.util.ModUtils;
@@ -173,7 +176,7 @@ public class KatanaItem extends Item implements ColorableItem, ModelVaryingItem,
                 }
 
                 user.addStatusEffect(new StatusEffectInstance(StatusEffects.GLOWING, 400));
-                user.playSound(RedemptionSoundEvents.UNSHEATHE, 1.0F, (float) (1.0F + user.getRandom().nextGaussian() / 10.0F));
+                user.playSound(RedemptionSounds.KATANA_UNSHEATHE, 1.0F, (float) (1.0F + user.getRandom().nextGaussian() / 10.0F));
 
                 return TypedActionResult.success(user.getStackInHand(hand), world.isClient);
             } else if (component.getBladeType() == KatanaComponent.BladeType.KATANA && JudgementComponent.KEY.get(user).isJudgement()) {
@@ -213,6 +216,43 @@ public class KatanaItem extends Item implements ColorableItem, ModelVaryingItem,
                 : component.getBladeType() == KatanaComponent.BladeType.SHEATHED
                 ? MiscUtils.isGui(renderMode) ? sheathedId : sheathedId.withSuffixedPath("_in_hand")
                 : MiscUtils.isGui(renderMode) ? sheathId : sheathId.withSuffixedPath("_in_hand");
+    }
+
+    public boolean onClicked(ItemStack stack, ItemStack otherStack, Slot slot, ClickType clickType, PlayerEntity player, StackReference cursorStackReference) {
+        ItemStack cursorStack = cursorStackReference.get();
+
+        KatanaComponent component = KatanaComponent.get(stack);
+        KatanaComponent cursorComponent = KatanaComponent.get(cursorStack);
+
+        if (clickType == ClickType.RIGHT
+                && component.getBladeType() == KatanaComponent.BladeType.SHEATH
+                && cursorComponent.getBladeType() == KatanaComponent.BladeType.KATANA
+        ) {
+            if (player.getInventory().contains(itemStack -> component.material().isEmpty() || component.material().test(itemStack))) {
+                cursorStack.decrement(1);
+                stack.set(RedemptionDataComponents.KATANA, component.withBladeType(KatanaComponent.BladeType.SHEATHED));
+
+                for (int i = 0; i < player.getInventory().size(); i++) {
+                    ItemStack itemStack = player.getInventory().getStack(i);
+                    if (component.material().isEmpty() || component.material().test(itemStack)) {
+                        itemStack.decrementUnlessCreative(1, player);
+                        break;
+                    }
+                }
+
+                if (player.getWorld().isClient) {
+                    player.playSound(RedemptionSounds.KATANA_SHEATHE, 1.0F, (float) (1.0F + player.getRandom().nextGaussian() / 10.0F));
+                }
+            } else {
+                if (player.getWorld().isClient) {
+                    player.playSound(SoundEvents.ITEM_BUNDLE_DROP_CONTENTS);
+                }
+            }
+
+            return true;
+        }
+
+        return super.onClicked(stack, otherStack, slot, clickType, player, cursorStackReference);
     }
 
     public List<Identifier> getModelsToLoad() {

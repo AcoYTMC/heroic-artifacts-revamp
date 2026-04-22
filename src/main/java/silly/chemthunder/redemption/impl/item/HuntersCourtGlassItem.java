@@ -17,7 +17,7 @@ import net.minecraft.util.math.Box;
 import net.minecraft.world.World;
 import silly.chemthunder.redemption.impl.cca.entity.EnshroudedComponent;
 import silly.chemthunder.redemption.impl.index.RedemptionParticles;
-import silly.chemthunder.redemption.impl.index.RedemptionSoundEvents;
+import silly.chemthunder.redemption.impl.index.RedemptionSounds;
 
 import java.util.List;
 
@@ -56,7 +56,7 @@ public class HuntersCourtGlassItem extends Item implements ColorableItem {
                 entity.addStatusEffect(new StatusEffectInstance(StatusEffects.GLOWING, 600));
                 entity.addStatusEffect(new StatusEffectInstance(StatusEffects.SLOWNESS, 600));
 
-                entity.playSound(RedemptionSoundEvents.HUNTER_BLACKOUT);
+                entity.playSound(RedemptionSounds.HUNTERS_GLASS_BLACKOUT);
             }
         }
 
