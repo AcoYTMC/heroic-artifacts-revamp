@@ -13,7 +13,7 @@ public interface RedemptionModels {
     Model LARGE_KATANA_IN_HAND = create("large_katana_in_hand", TextureKey.LAYER0);
     Model LARGE_SHEATH_IN_HAND = create("large_sheath_in_hand", TextureKey.LAYER0);
 
-    static Model create(String parent,  TextureKey... requiredTextureKeys) {
-        return new Model(Optional.of(Redemption.id("item/" + parent)), Optional.empty(), requiredTextureKeys);
+    static Model create(String parent, TextureKey... textureKeys) {
+        return new Model(Optional.of(Redemption.id("item/" + parent)), Optional.empty(), textureKeys);
     }
 }
