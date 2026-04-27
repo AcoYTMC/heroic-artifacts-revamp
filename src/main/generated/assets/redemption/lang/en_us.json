@@ -1,8 +1,8 @@
 {
-  "category.redemption": "Ikir Abilities",
+  "category.redemption": "Redemption",
   "death.attack.descend": "%1$s's purpose was revoked",
-  "death.attack.descend.item": "%1$s's purpose was revoked",
-  "death.attack.descend.player": "%1$s's purpose was revoked",
+  "death.attack.descend.item": "%1$s's purpose was revoked by %2$s with %3$s",
+  "death.attack.descend.player": "%1$s's purpose was revoked by %2$s",
   "death.attack.katana": "%1$s was cut in half",
   "death.attack.katana.item": "%1$s was cut in half by %2$s wielding %3$s",
   "death.attack.katana.player": "%1$s was cut in half by %2$s",
